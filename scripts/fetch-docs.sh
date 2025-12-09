@@ -1,0 +1,102 @@
+#!/bin/sh
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT_DIR="$(dirname "$SCRIPT_DIR")"
+DOCS_DIR="$ROOT_DIR/docs"
+TEMP_DIR="$ROOT_DIR/.temp-repos"
+
+echo "Fetching documentation from source repositories..."
+
+# Create temp directory
+mkdir -p "$TEMP_DIR"
+
+# Function to process markdown files and remove docs-exclude markers
+process_markdown() {
+  file="$1"
+
+  # Create a temp file for processing
+  temp_file="${file}.tmp"
+
+  # Use sed to:
+  # 1. Remove multi-line blocks: <!-- docs-exclude-start --> ... <!-- docs-exclude-end -->
+  # 2. Remove single-line markers: <!-- docs-exclude -->...
+  sed -e '/<!-- docs-exclude-start -->/,/<!-- docs-exclude-end -->/d' \
+      -e '/<!-- docs-exclude -->/d' \
+      "$file" > "$temp_file"
+
+  mv "$temp_file" "$file"
+}
+
+# Function to fetch docs from a repo
+fetch_docs() {
+  project="$1"
+  repo_url="$2"
+  docs_path="$3"
+  target_dir="$DOCS_DIR/$project"
+  temp_repo="$TEMP_DIR/$project"
+
+  echo ""
+  echo "=== Processing $project ==="
+  echo "Repository: $repo_url"
+  echo "Docs path: $docs_path"
+
+  # Clone or pull the repository
+  if [ -d "$temp_repo" ]; then
+    echo "Updating existing clone..."
+    cd "$temp_repo"
+    git fetch origin
+    git reset --hard origin/main
+    cd "$ROOT_DIR"
+  else
+    echo "Cloning repository..."
+    git clone --depth 1 "$repo_url" "$temp_repo"
+  fi
+
+  # Check if docs directory exists in the repo
+  if [ -d "$temp_repo/$docs_path" ]; then
+    echo "Copying docs to $target_dir..."
+    rm -rf "$target_dir"
+    mkdir -p "$target_dir"
+    cp -r "$temp_repo/$docs_path/"* "$target_dir/"
+
+    # Copy README.md as intro.md if it exists and intro.md doesn't
+    if [ -f "$temp_repo/README.md" ] && [ ! -f "$target_dir/intro.md" ]; then
+      echo "Copying README.md as intro.md..."
+      cp "$temp_repo/README.md" "$target_dir/intro.md"
+    fi
+
+    # Process all markdown files to remove docs-exclude markers
+    echo "Processing markdown files..."
+    find "$target_dir" -name "*.md" -type f | while read -r md_file; do
+      process_markdown "$md_file"
+    done
+
+    echo "Done processing $project docs."
+  else
+    echo "Warning: No docs directory found at $temp_repo/$docs_path"
+    echo "Creating placeholder..."
+    mkdir -p "$target_dir"
+    cat > "$target_dir/intro.md" << EOF
+---
+sidebar_position: 1
+---
+
+# $project
+
+Documentation coming soon.
+EOF
+  fi
+}
+
+# Fetch docs from each repository
+fetch_docs "mcp" "https://github.com/vfarcic/dot-ai.git" "docs"
+fetch_docs "controller" "https://github.com/vfarcic/dot-ai-controller.git" "docs"
+
+echo ""
+echo "=== Cleanup ==="
+rm -rf "$TEMP_DIR"
+echo "Temporary files cleaned up."
+
+echo ""
+echo "Documentation fetch complete!"

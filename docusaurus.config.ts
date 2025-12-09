@@ -1,0 +1,145 @@
+import {themes as prismThemes} from 'prism-react-renderer';
+import type {Config} from '@docusaurus/types';
+import type * as Preset from '@docusaurus/preset-classic';
+
+const config: Config = {
+  title: 'DevOps AI Toolkit',
+  tagline: 'AI-powered Kubernetes operations for DevOps teams',
+  favicon: 'img/favicon.ico',
+
+  future: {
+    v4: true,
+  },
+
+  url: 'https://devopstoolkit.ai',
+  baseUrl: '/',
+
+  organizationName: 'vfarcic',
+  projectName: 'dot-ai-website',
+
+  onBrokenLinks: 'throw',
+
+  markdown: {
+    preprocessor: ({filePath, fileContent}) => fileContent,
+  },
+
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
+  },
+
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'mcp',
+        path: 'docs/mcp',
+        routeBasePath: 'docs/mcp',
+        sidebarPath: './sidebars/mcp.ts',
+        editUrl: 'https://github.com/vfarcic/dot-ai/tree/main/docs/',
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'controller',
+        path: 'docs/controller',
+        routeBasePath: 'docs/controller',
+        sidebarPath: './sidebars/controller.ts',
+        editUrl: 'https://github.com/vfarcic/dot-ai-controller/tree/main/docs/',
+      },
+    ],
+  ],
+
+  presets: [
+    [
+      'classic',
+      {
+        docs: false, // Disable default docs, we use multi-instance above
+        blog: false, // Disable blog for now
+        theme: {
+          customCss: './src/css/custom.css',
+        },
+      } satisfies Preset.Options,
+    ],
+  ],
+
+  themeConfig: {
+    image: 'img/social-card.jpg',
+    colorMode: {
+      respectPrefersColorScheme: true,
+    },
+    navbar: {
+      title: 'DevOps AI Toolkit',
+      logo: {
+        alt: 'DevOps AI Toolkit Logo',
+        src: 'img/logo.svg',
+      },
+      items: [
+        {
+          to: '/docs/mcp/intro',
+          label: 'MCP Server',
+          position: 'left',
+        },
+        {
+          to: '/docs/controller/intro',
+          label: 'Controller',
+          position: 'left',
+        },
+        {
+          href: 'https://github.com/vfarcic/dot-ai',
+          label: 'GitHub',
+          position: 'right',
+        },
+      ],
+    },
+    footer: {
+      style: 'dark',
+      links: [
+        {
+          title: 'Documentation',
+          items: [
+            {
+              label: 'MCP Server',
+              to: '/docs/mcp/intro',
+            },
+            {
+              label: 'Controller',
+              to: '/docs/controller/intro',
+            },
+          ],
+        },
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'GitHub Discussions',
+              href: 'https://github.com/vfarcic/dot-ai/discussions',
+            },
+          ],
+        },
+        {
+          title: 'More',
+          items: [
+            {
+              label: 'MCP Server GitHub',
+              href: 'https://github.com/vfarcic/dot-ai',
+            },
+            {
+              label: 'Controller GitHub',
+              href: 'https://github.com/vfarcic/dot-ai-controller',
+            },
+          ],
+        },
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} DevOps AI Toolkit. Built with Docusaurus.`,
+    },
+    prism: {
+      theme: prismThemes.github,
+      darkTheme: prismThemes.dracula,
+      additionalLanguages: ['bash', 'yaml', 'json'],
+    },
+  } satisfies Preset.ThemeConfig,
+};
+
+export default config;

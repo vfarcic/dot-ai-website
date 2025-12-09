@@ -154,9 +154,9 @@ Landing Page → Project docs → Contributing guide → Development setup
 - Create fetch-docs script for pulling from source repos
 
 **Validation**:
-- [ ] Local dev server runs successfully
-- [ ] Multi-docs structure configured
-- [ ] fetch-docs script pulls from both source repos
+- [x] Local dev server runs successfully
+- [x] Multi-docs structure configured
+- [x] fetch-docs script pulls from both source repos
 
 ### Milestone 2: Landing Page
 **Goal**: Compelling homepage showcasing the ecosystem
@@ -170,8 +170,8 @@ Landing Page → Project docs → Contributing guide → Development setup
 
 **Validation**:
 - [ ] Landing page visually appealing
-- [ ] Clear value proposition communicated
-- [ ] Navigation to docs works
+- [x] Clear value proposition communicated
+- [x] Navigation to docs works
 - [ ] Mobile-responsive verified
 
 ### Milestone 3: Documentation Integration
@@ -284,6 +284,27 @@ A future tool in the dot-ai MCP that would:
 
 ## Progress Log
 
+### 2025-12-10 - Milestone 1 Complete + Milestone 2 Partial
+**Completed**:
+- Initialized Docusaurus 3.9.2 project with TypeScript
+- Configured multi-docs instances (mcp, controller) via plugins
+- Created sidebars (`sidebars/mcp.ts`, `sidebars/controller.ts`)
+- Created `scripts/fetch-docs.sh` with docs-exclude marker support for stripping GitHub-specific content
+- Implemented landing page with hero section and project cards
+- Added Playwright MCP for browser-based testing
+- Verified local dev server and navigation via Playwright
+
+**Decisions Made**:
+- URL: `https://devopstoolkit.ai`
+- No hardcoded feature list on landing page (to avoid outdated content)
+- Source repos use `<!-- docs-exclude-start/end -->` markers to strip badges/images for docs portal
+- README.md copied as `intro.md` during fetch
+
+**Blocked**:
+- Docs integration blocked until source repos add docs-exclude markers around badges/logo
+
+**Next**: Source repos need to add docs-exclude markers, then continue with Milestone 3
+
 ### [Date] - PRD Created
 - Created dot-ai-website repository
 - Initial PRD with 5 major milestones
@@ -292,6 +313,6 @@ A future tool in the dot-ai MCP that would:
 
 ---
 
-**Last Updated**: 2025-12-08
-**Status**: Planning
-**Next Action**: Review PRD, then begin Milestone 1
+**Last Updated**: 2025-12-10
+**Status**: In Progress (Milestone 1 complete, Milestone 2 partial)
+**Next Action**: Add docs-exclude markers to source repos, then continue Milestone 3

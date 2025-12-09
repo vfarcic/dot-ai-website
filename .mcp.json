@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "dot-ai": {
+      "command": "docker",
+      "args": [
+        "compose", 
+        "-f",
+        "docker-compose-dot-ai.yaml",
+        "run", 
+        "--rm",
+        "--remove-orphans",
+        "dot-ai"
+      ]
+    },
+    "coderabbitai": {
+      "command": "npx",
+      "args": ["coderabbitai-mcp@latest"],
+      "env": {
+        "GITHUB_PAT": "${GITHUB_TOKEN}"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
+    }
+  }
+}
