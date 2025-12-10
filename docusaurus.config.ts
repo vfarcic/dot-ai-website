@@ -81,13 +81,16 @@ const config: Config = {
   themeConfig: {
     image: 'img/social-card.jpg',
     colorMode: {
-      respectPrefersColorScheme: true,
+      defaultMode: 'light',
+      disableSwitch: true,
+      respectPrefersColorScheme: false,
     },
     navbar: {
       title: 'DevOps AI Toolkit',
       logo: {
         alt: 'DevOps AI Toolkit Logo',
-        src: 'img/logo.svg',
+        src: 'img/logo.jpeg',
+        style: { borderRadius: '4px' },
       },
       items: [
         {
@@ -101,9 +104,19 @@ const config: Config = {
           position: 'left',
         },
         {
-          href: 'https://github.com/vfarcic/dot-ai',
+          type: 'dropdown',
           label: 'GitHub',
           position: 'right',
+          items: [
+            {
+              href: 'https://github.com/vfarcic/dot-ai',
+              label: 'MCP Server',
+            },
+            {
+              href: 'https://github.com/vfarcic/dot-ai-controller',
+              label: 'Controller',
+            },
+          ],
         },
       ],
     },
@@ -127,8 +140,12 @@ const config: Config = {
           title: 'Community',
           items: [
             {
-              label: 'GitHub Discussions',
+              label: 'MCP Server Discussions',
               href: 'https://github.com/vfarcic/dot-ai/discussions',
+            },
+            {
+              label: 'Controller Discussions',
+              href: 'https://github.com/vfarcic/dot-ai-controller/discussions',
             },
           ],
         },

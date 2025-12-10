@@ -4,15 +4,24 @@
  */
 
 .heroBanner {
-  padding: 4rem 0;
+  padding: 1.5rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
+  background-color: #FACB00;
+  color: #2D2D2D;
+}
+
+.heroLogo {
+  max-width: 300px;
+  height: auto;
+  margin-bottom: 0;
+  border-radius: 12px;
 }
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 2rem;
+    padding: 1rem;
   }
 }
 

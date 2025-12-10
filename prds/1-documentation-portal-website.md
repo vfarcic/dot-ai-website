@@ -284,6 +284,27 @@ A future tool in the dot-ai MCP that would:
 
 ## Progress Log
 
+### 2025-12-10 - Theme, Branding & Navigation Polish
+**Completed**:
+- Applied exact logo colors (`#FACB00` yellow, `#2D2D2D` dark) throughout site
+- Added logo.jpeg to landing page hero section
+- Updated navbar to use logo.jpeg instead of placeholder logo.svg
+- Fixed link readability - changed to lighter blue (`#2196F3`)
+- Disabled dark mode toggle - site locked to light mode with brand colors
+- Reduced hero section padding for better visual balance
+- Added GitHub dropdown in navbar with both MCP Server and Controller repos
+- Added Controller Discussions link to footer Community section
+- Enabled GitHub Discussions for dot-ai-controller repository
+
+**Files Modified**:
+- `src/css/custom.css` - Brand colors, link colors, navbar/hero theming
+- `src/pages/index.tsx` - Added logo image to hero section
+- `src/pages/index.module.css` - Hero background color, reduced padding, logo styling
+- `docusaurus.config.ts` - Navbar logo, GitHub dropdown, discussions links, disabled dark mode
+- `static/img/logo.jpeg` - New logo file added
+
+**Next**: Milestone 4 - CI/CD & Deployment
+
 ### 2025-12-10 - Docs Fetch Exclusions & Source Repo Reorganization
 **Completed**:
 - Updated `fetch-docs.sh` to exclude `dev/` directory and `CLAUDE.md` (development-only docs)
@@ -347,10 +368,13 @@ A future tool in the dot-ai MCP that would:
 **Pending Tasks** (before CI/CD):
 - [x] Remove "Get Started" button
 - [x] Add Mermaid support
-- [ ] Apply theme colors
-- [ ] Landing page redesign
+- [x] Apply theme colors
+- [x] Landing page redesign (logo, branding, navigation)
 - [x] Update fetch-docs.sh to exclude `dev/` directory
 - [x] Re-fetch docs after source repo reorganization
+
+**Final Tasks** (after launch):
+- [ ] Add this website to both source project READMEs with link to devopstoolkit.ai
 
 ### 2025-12-10 - Milestone 1 Complete + Milestone 2 Partial
 **Completed**:
@@ -377,5 +401,5 @@ A future tool in the dot-ai MCP that would:
 ---
 
 **Last Updated**: 2025-12-10
-**Status**: In Progress (Milestones 1 & 3 complete, Milestone 2 partial)
-**Next Action**: Complete pending tasks (theme colors, landing page redesign), then Milestone 4 - CI/CD & Deployment
+**Status**: In Progress (Milestones 1, 2 & 3 complete, ready for CI/CD)
+**Next Action**: Milestone 4 - CI/CD & Deployment
