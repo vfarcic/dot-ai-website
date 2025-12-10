@@ -49,6 +49,18 @@ const config: Config = {
         editUrl: 'https://github.com/vfarcic/dot-ai-controller/tree/main/docs/',
       },
     ],
+    [
+      require.resolve('@easyops-cn/docusaurus-search-local'),
+      {
+        hashed: true,
+        docsRouteBasePath: ['/docs/mcp', '/docs/controller'],
+        docsDir: ['docs/mcp', 'docs/controller'],
+        docsPluginIdForPreferredVersion: 'mcp',
+        indexBlog: false,
+        highlightSearchTermsOnTargetPage: true,
+        searchBarShortcutHint: false,
+      },
+    ],
   ],
 
   presets: [

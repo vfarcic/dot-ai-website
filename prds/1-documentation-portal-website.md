@@ -186,10 +186,10 @@ Landing Page → Project docs → Contributing guide → Development setup
 - Test all documentation pages
 
 **Validation**:
-- [ ] All dot-ai docs accessible
-- [ ] All dot-ai-controller docs accessible
-- [ ] Search works across all docs
-- [ ] No broken links or images
+- [x] All dot-ai docs accessible
+- [x] All dot-ai-controller docs accessible
+- [x] Search works across all docs
+- [x] No broken links or images
 
 ### Milestone 4: CI/CD & Deployment
 **Goal**: Automated build and deployment pipeline
@@ -284,6 +284,22 @@ A future tool in the dot-ai MCP that would:
 
 ## Progress Log
 
+### 2025-12-10 - Milestone 3 Complete
+**Completed**:
+- Integrated documentation from both source repos (dot-ai, dot-ai-controller)
+- Fixed broken links in source repos and re-fetched docs
+- Added `fix_intro_links()` function to `fetch-docs.sh` to transform `docs/` prefix links in README→intro.md
+- Added exclusion of non-user-facing docs (GOVERNANCE.md, MAINTAINERS.md, ROADMAP.md, setup/development-setup.md)
+- Installed and configured `@easyops-cn/docusaurus-search-local` for multi-docs search
+- Verified build succeeds with `onBrokenLinks: 'throw'` (only anchor warnings remain)
+- Search functionality works in production builds
+
+**Technical Notes**:
+- Search plugin only works in production builds (`npm run build && npm run serve`), not dev mode - this is expected behavior
+- Link transformation regex: `s/(\.\{0,1\}\/\{0,1\}docs\/\([^)]*\))/(\.\/\1)/g`
+
+**Next**: Milestone 4 - CI/CD & Deployment
+
 ### 2025-12-10 - Milestone 1 Complete + Milestone 2 Partial
 **Completed**:
 - Initialized Docusaurus 3.9.2 project with TypeScript
@@ -300,11 +316,6 @@ A future tool in the dot-ai MCP that would:
 - Source repos use `<!-- docs-exclude-start/end -->` markers to strip badges/images for docs portal
 - README.md copied as `intro.md` during fetch
 
-**Blocked**:
-- Docs integration blocked until source repos add docs-exclude markers around badges/logo
-
-**Next**: Source repos need to add docs-exclude markers, then continue with Milestone 3
-
 ### [Date] - PRD Created
 - Created dot-ai-website repository
 - Initial PRD with 5 major milestones
@@ -314,5 +325,5 @@ A future tool in the dot-ai MCP that would:
 ---
 
 **Last Updated**: 2025-12-10
-**Status**: In Progress (Milestone 1 complete, Milestone 2 partial)
-**Next Action**: Add docs-exclude markers to source repos, then continue Milestone 3
+**Status**: In Progress (Milestones 1 & 3 complete, Milestone 2 partial)
+**Next Action**: Milestone 4 - CI/CD & Deployment
