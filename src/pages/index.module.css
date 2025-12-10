@@ -16,12 +16,6 @@
   }
 }
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .projects {
   padding: 2rem 0;
 }

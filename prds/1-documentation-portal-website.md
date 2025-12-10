@@ -284,6 +284,18 @@ A future tool in the dot-ai MCP that would:
 
 ## Progress Log
 
+### 2025-12-10 - Landing Page Polish: Remove Get Started Button
+**Completed**:
+- Removed "Get Started" button from hero section - with two projects, project cards serve as primary entry points
+- Cleaned up unused `.buttons` CSS class from `index.module.css`
+- Verified build succeeds and landing page displays correctly
+
+**Files Modified**:
+- `src/pages/index.tsx` - Removed button wrapper div
+- `src/pages/index.module.css` - Removed unused `.buttons` style
+
+**Next**: Continue with remaining pending tasks (Mermaid support, theme colors, landing page redesign)
+
 ### 2025-12-10 - Milestone 3 Complete
 **Completed**:
 - Integrated documentation from both source repos (dot-ai, dot-ai-controller)
@@ -299,6 +311,23 @@ A future tool in the dot-ai MCP that would:
 - Link transformation regex: `s/(\.\{0,1\}\/\{0,1\}docs\/\([^)]*\))/(\.\/\1)/g`
 
 **Next**: Milestone 4 - CI/CD & Deployment
+
+### 2025-12-10 - Design Decisions (Pre-Milestone 4)
+**Decisions Made**:
+- Remove "Get Started" button from landing page - with two projects, project cards serve as primary entry points
+- Add Mermaid diagram support (`@docusaurus/theme-mermaid`) - source docs contain Mermaid diagrams
+- Apply logo-derived theme colors (#3ECC5F, #44D860) to replace default Docusaurus green
+- Redesign landing page for visual polish and mobile responsiveness
+- Exclude `docs/dev/` directory from fetch (development-only docs like CLAUDE.md, integration-testing-guide.md)
+- Source repos will reorganize docs with `sidebar_position` frontmatter and `_category_.yml` for better navigation
+
+**Pending Tasks** (before CI/CD):
+- [x] Remove "Get Started" button
+- [ ] Add Mermaid support
+- [ ] Apply theme colors
+- [ ] Landing page redesign
+- [ ] Update fetch-docs.sh to exclude `dev/` directory
+- [ ] Re-fetch docs after source repo reorganization
 
 ### 2025-12-10 - Milestone 1 Complete + Milestone 2 Partial
 **Completed**:
@@ -326,4 +355,4 @@ A future tool in the dot-ai MCP that would:
 
 **Last Updated**: 2025-12-10
 **Status**: In Progress (Milestones 1 & 3 complete, Milestone 2 partial)
-**Next Action**: Milestone 4 - CI/CD & Deployment
+**Next Action**: Complete pending tasks (Mermaid, theme, landing page, fetch exclusions), then Milestone 4 - CI/CD & Deployment
