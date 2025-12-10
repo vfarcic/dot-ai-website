@@ -85,12 +85,13 @@ fetch_docs() {
       fix_intro_links "$target_dir/intro.md"
     fi
 
-    # Remove non-user-facing docs (governance/contributor docs)
+    # Remove non-user-facing docs (governance/contributor docs, dev-only docs)
     echo "Removing non-user-facing docs..."
     rm -f "$target_dir/GOVERNANCE.md"
     rm -f "$target_dir/MAINTAINERS.md"
     rm -f "$target_dir/ROADMAP.md"
-    rm -f "$target_dir/setup/development-setup.md"
+    rm -f "$target_dir/CLAUDE.md"
+    rm -rf "$target_dir/dev"
 
     # Process all markdown files to remove docs-exclude markers
     echo "Processing markdown files..."

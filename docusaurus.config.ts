@@ -11,6 +11,12 @@ const config: Config = {
     v4: true,
   },
 
+  // Enable Mermaid diagrams
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
+
   url: 'https://devopstoolkit.ai',
   baseUrl: '/',
 
@@ -18,10 +24,6 @@ const config: Config = {
   projectName: 'dot-ai-website',
 
   onBrokenLinks: 'throw',
-
-  markdown: {
-    preprocessor: ({filePath, fileContent}) => fileContent,
-  },
 
   i18n: {
     defaultLocale: 'en',
