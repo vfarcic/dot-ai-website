@@ -71,11 +71,12 @@ dot-ai-website/           # This repository
 ### Build Flow
 
 ```
-1. CI triggers (webhook, schedule, or manual)
+1. CI triggers (push to main, webhook from source repos, or manual)
 2. fetch-docs.sh clones/pulls latest from source repos
 3. Docs copied to website/docs/{project}/
 4. Docusaurus builds static site
-5. Deploy to GitHub Pages
+5. Container image built and pushed to registry
+6. GitOps detects new image → deploys to Kubernetes
 ```
 
 ### Linking Strategy
@@ -194,16 +195,21 @@ Landing Page → Project docs → Contributing guide → Development setup
 ### Milestone 4: CI/CD & Deployment
 **Goal**: Automated build and deployment pipeline
 
+**Owner**: Viktor (manual implementation)
+
+**Architecture Decision**: Deploy as container image to Kubernetes using GitOps instead of GitHub Pages. This aligns with the DevOps AI Toolkit's Kubernetes-native philosophy and provides more deployment flexibility.
+
 **Tasks**:
-- Configure GitHub Pages deployment
-- Create deployment workflow (fetch → build → deploy)
-- Set up build triggers (push, manual, webhook consideration)
-- Enable HTTPS
-- Test deployment process
+- [x] Create Dockerfile for the Docusaurus static site
+- [ ] Set up GitHub Actions workflow for container image build
+- [ ] Configure Kubernetes manifests for deployment
+- [ ] Set up GitOps pipeline (Argo CD or similar)
+- [ ] Configure HTTPS/ingress
+- [ ] Test deployment process
 
 **Validation**:
-- [ ] Website publicly accessible
-- [ ] Automated deployment working
+- [ ] Website publicly accessible at devopstoolkit.ai
+- [ ] Automated deployment working via GitOps
 - [ ] HTTPS enabled
 - [ ] Build completes successfully
 
@@ -259,7 +265,9 @@ A future tool in the dot-ai MCP that would:
 - Docusaurus framework
 - Node.js runtime
 - GitHub Actions for CI/CD
-- GitHub Pages for hosting
+- Container registry (GitHub Container Registry or similar)
+- Kubernetes cluster for hosting
+- GitOps tool (Argo CD or similar)
 
 ## Risks & Mitigation
 
@@ -283,6 +291,38 @@ A future tool in the dot-ai MCP that would:
 - **dot-ai #173**: CNCF Foundation Submission - Website supports CNCF evaluation
 
 ## Progress Log
+
+### 2025-12-10 - Milestone 4: Dockerfile Created
+**Completed**:
+- Created multi-stage Dockerfile (Node.js 20-alpine builder → Nginx 1.29-alpine runtime)
+- Implemented security best practices: non-root user (appuser:appgroup), port 8080
+- Added performance optimizations: gzip compression, static asset caching (1-year expiry)
+- Configured SPA routing with try_files fallback to index.html
+- Created .dockerignore to exclude node_modules, build artifacts, secrets
+
+**Design Decision**: Docs are fetched in CI before `docker build` (not inside Dockerfile). This keeps the Dockerfile simpler and makes doc fetching a CI responsibility.
+
+**Files Created**:
+- `Dockerfile` - Multi-stage build for static site container
+- `.dockerignore` - Excludes unnecessary files from build context
+
+**Next**: Set up GitHub Actions workflow for container image build
+
+### 2025-12-10 - Deployment Architecture Decision
+**Decision**: Deploy as containerized application to Kubernetes using GitOps instead of GitHub Pages.
+
+**Rationale**:
+- Aligns with DevOps AI Toolkit's Kubernetes-native philosophy
+- Provides more deployment flexibility and control
+- Enables GitOps workflow consistency across the ecosystem
+- Viktor to implement: Dockerfile, GitHub Actions, Kubernetes manifests, GitOps pipeline
+
+**Impact**:
+- Updated Milestone 4 tasks and validation criteria
+- Changed external dependencies from GitHub Pages to Kubernetes/GitOps stack
+- Build flow now includes container image build and GitOps deployment
+
+**Owner**: Viktor (manual implementation)
 
 ### 2025-12-10 - Theme, Branding & Navigation Polish
 **Completed**:
@@ -401,5 +441,5 @@ A future tool in the dot-ai MCP that would:
 ---
 
 **Last Updated**: 2025-12-10
-**Status**: In Progress (Milestones 1, 2 & 3 complete, ready for CI/CD)
-**Next Action**: Milestone 4 - CI/CD & Deployment
+**Status**: In Progress (Milestones 1, 2, 3 complete; Milestone 4 started - Dockerfile done)
+**Next Action**: Set up GitHub Actions workflow for container image build

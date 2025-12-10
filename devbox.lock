@@ -77,6 +77,106 @@
       "last_modified": "2025-12-03T20:43:00Z",
       "resolved": "github:NixOS/nixpkgs/ebc94f855ef25347c314258c10393a92794e7ab9?lastModified=1764794580&narHash=sha256-UMVihg0OQ980YqmOAPz%2BzkuCEb9hpE5Xj2v%2BZGNjQ%2BM%3D"
     },
+    "hadolint@2.14.0": {
+      "last_modified": "2025-11-23T21:50:36Z",
+      "resolved": "github:NixOS/nixpkgs/ee09932cedcef15aaf476f9343d1dea2cb77e261#hadolint",
+      "source": "devbox-search",
+      "version": "2.14.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/q7p7j7dzzqa175z0cl0jxhzs7zy7kw0m-hadolint-2.14.0",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/2c6kmssbjjzs9vw81hzfgmnhz2zphbi3-hadolint-2.14.0-doc"
+            }
+          ],
+          "store_path": "/nix/store/q7p7j7dzzqa175z0cl0jxhzs7zy7kw0m-hadolint-2.14.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/63acyx57xm3wcxiiq1071qgjqlb0namg-hadolint-2.14.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/63acyx57xm3wcxiiq1071qgjqlb0namg-hadolint-2.14.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/c5p1w3nl0ywsnv8kz6wymll4iyyky3x9-hadolint-2.14.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/c5p1w3nl0ywsnv8kz6wymll4iyyky3x9-hadolint-2.14.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/kavldg345m7cmwr70rhjbcdqv4g049ra-hadolint-2.14.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/kavldg345m7cmwr70rhjbcdqv4g049ra-hadolint-2.14.0"
+        }
+      }
+    },
+    "trivy@0.66.0": {
+      "last_modified": "2025-12-03T03:51:48Z",
+      "resolved": "github:NixOS/nixpkgs/cadcc8de247676e4751c9d4a935acb2c0b059113#trivy",
+      "source": "devbox-search",
+      "version": "0.66.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/qw3pyjs7xa7kdz1nkx8c95gvn3iha74b-trivy-0.66.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/qw3pyjs7xa7kdz1nkx8c95gvn3iha74b-trivy-0.66.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/w8vkxrrgyc16h98amx16crdz2g96ig3y-trivy-0.66.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/w8vkxrrgyc16h98amx16crdz2g96ig3y-trivy-0.66.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/2jdq82n5igqhv8f6a3j33sbln9dg401h-trivy-0.66.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/2jdq82n5igqhv8f6a3j33sbln9dg401h-trivy-0.66.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/90jshd09zxx1a8dm1kj22hb2dgkfznwx-trivy-0.66.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/90jshd09zxx1a8dm1kj22hb2dgkfznwx-trivy-0.66.0"
+        }
+      }
+    },
     "vals@0.42.6": {
       "last_modified": "2025-11-27T07:58:14Z",
       "resolved": "github:NixOS/nixpkgs/0d59e0290eefe0f12512043842d7096c4070f30e#vals",

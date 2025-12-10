@@ -2,7 +2,9 @@
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.16.0/.schema/devbox.schema.json",
   "packages": [
     "vals@0.42.6",
-    "git@2.51.2"
+    "git@2.51.2",
+    "hadolint@2.14.0",
+    "trivy@0.66.0"
   ],
   "shell": {
     "init_hook": [],

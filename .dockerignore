@@ -1,0 +1,16 @@
+# Dependencies (reinstalled in build)
+node_modules
+
+# Build outputs (recreated in build)
+build
+.docusaurus
+
+# Development files
+.git
+.devbox
+*.log
+
+# Secrets that could exist in project
+.env*
+*.pem
+*.key
