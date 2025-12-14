@@ -13,5 +13,5 @@ spec:
   dnsNames:
   - devopstoolkit.ai
   issuerRef:
-    name: letsencrypt-prod
+    name: letsencrypt
     kind: ClusterIssuer
