@@ -30,3 +30,4 @@ yarn-error.log*
 
 /kubeconfig*.yaml
 /gke_gcloud_auth_plugin_cache
+/.env
