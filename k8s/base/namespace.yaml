@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dot-ai
+  labels:
+    dot-ai.io/managed: "true"
+    dot-ai.io/app-name: dot-ai-website
