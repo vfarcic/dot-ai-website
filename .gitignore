@@ -27,3 +27,6 @@ yarn-error.log*
 # Fetched docs (regenerated from source repos)
 /docs/mcp
 /docs/controller
+
+/kubeconfig*.yaml
+/gke_gcloud_auth_plugin_cache
