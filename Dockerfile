@@ -32,6 +32,7 @@ RUN addgroup -g 10001 -S appgroup && \
 COPY --from=builder /app/build /usr/share/nginx/html
 
 # Copy nginx configuration
+# hadolint ignore=SC2016
 RUN printf 'server {\n\
     listen 8080;\n\
     server_name localhost;\n\
