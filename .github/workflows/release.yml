@@ -105,12 +105,7 @@ jobs:
                        -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
 
       - name: Run smoke test
-        run: |
-          docker run -d --name smoke-test -p 8080:8080 ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
-          sleep 5
-          ./scripts/smoke-test.sh
-          docker stop smoke-test
-          docker rm smoke-test
+        run: ./scripts/smoke-test.sh ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
 
       - name: Trivy vulnerability scan
         run: devbox run trivy image --exit-code 1 --severity HIGH,CRITICAL ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}

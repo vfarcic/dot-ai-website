@@ -47,12 +47,7 @@ jobs:
         run: docker build -t dot-ai-website:pr-${{ github.event.pull_request.number }} .
 
       - name: Run smoke test
-        run: |
-          docker run -d --name smoke-test -p 8080:8080 dot-ai-website:pr-${{ github.event.pull_request.number }}
-          sleep 5
-          ./scripts/smoke-test.sh
-          docker stop smoke-test
-          docker rm smoke-test
+        run: ./scripts/smoke-test.sh dot-ai-website:pr-${{ github.event.pull_request.number }}
 
       - name: Trivy vulnerability scan
         run: devbox run trivy image --exit-code 1 --severity HIGH,CRITICAL dot-ai-website:pr-${{ github.event.pull_request.number }}
