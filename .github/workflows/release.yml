@@ -1,8 +1,14 @@
 name: Release
 
 on:
-  push:
-    branches: [main]
+  repository_dispatch:
+    types: [upstream-release]
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual trigger'
+        required: false
+        default: 'Manual release'
 
 permissions:
   contents: write
