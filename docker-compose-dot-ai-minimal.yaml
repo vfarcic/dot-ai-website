@@ -1,0 +1,12 @@
+# Docker Compose configuration for DevOps AI Toolkit MCP Server
+# Development and testing deployment with MCP server + Qdrant
+
+services:
+  # DevOps AI Toolkit MCP Server
+  dot-ai:
+    image: ${DOT_AI_IMAGE:-ghcr.io/vfarcic/dot-ai:latest}
+    container_name: dot-ai
+    network_mode: "host"
+networks:
+  dot-ai-network:
+    name: dot-ai-network

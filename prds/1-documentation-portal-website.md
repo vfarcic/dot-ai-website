@@ -71,11 +71,12 @@ dot-ai-website/           # This repository
 ### Build Flow
 
 ```
-1. CI triggers (webhook, schedule, or manual)
+1. CI triggers (push to main, webhook from source repos, or manual)
 2. fetch-docs.sh clones/pulls latest from source repos
 3. Docs copied to website/docs/{project}/
 4. Docusaurus builds static site
-5. Deploy to GitHub Pages
+5. Container image built and pushed to registry
+6. GitOps detects new image → deploys to Kubernetes
 ```
 
 ### Linking Strategy
@@ -154,9 +155,9 @@ Landing Page → Project docs → Contributing guide → Development setup
 - Create fetch-docs script for pulling from source repos
 
 **Validation**:
-- [ ] Local dev server runs successfully
-- [ ] Multi-docs structure configured
-- [ ] fetch-docs script pulls from both source repos
+- [x] Local dev server runs successfully
+- [x] Multi-docs structure configured
+- [x] fetch-docs script pulls from both source repos
 
 ### Milestone 2: Landing Page
 **Goal**: Compelling homepage showcasing the ecosystem
@@ -170,8 +171,8 @@ Landing Page → Project docs → Contributing guide → Development setup
 
 **Validation**:
 - [ ] Landing page visually appealing
-- [ ] Clear value proposition communicated
-- [ ] Navigation to docs works
+- [x] Clear value proposition communicated
+- [x] Navigation to docs works
 - [ ] Mobile-responsive verified
 
 ### Milestone 3: Documentation Integration
@@ -186,24 +187,29 @@ Landing Page → Project docs → Contributing guide → Development setup
 - Test all documentation pages
 
 **Validation**:
-- [ ] All dot-ai docs accessible
-- [ ] All dot-ai-controller docs accessible
-- [ ] Search works across all docs
-- [ ] No broken links or images
+- [x] All dot-ai docs accessible
+- [x] All dot-ai-controller docs accessible
+- [x] Search works across all docs
+- [x] No broken links or images
 
 ### Milestone 4: CI/CD & Deployment
 **Goal**: Automated build and deployment pipeline
 
+**Owner**: Viktor (manual implementation)
+
+**Architecture Decision**: Deploy as container image to Kubernetes using GitOps instead of GitHub Pages. This aligns with the DevOps AI Toolkit's Kubernetes-native philosophy and provides more deployment flexibility.
+
 **Tasks**:
-- Configure GitHub Pages deployment
-- Create deployment workflow (fetch → build → deploy)
-- Set up build triggers (push, manual, webhook consideration)
-- Enable HTTPS
-- Test deployment process
+- [x] Create Dockerfile for the Docusaurus static site
+- [ ] Set up GitHub Actions workflow for container image build
+- [ ] Configure Kubernetes manifests for deployment
+- [ ] Set up GitOps pipeline (Argo CD or similar)
+- [ ] Configure HTTPS/ingress
+- [ ] Test deployment process
 
 **Validation**:
-- [ ] Website publicly accessible
-- [ ] Automated deployment working
+- [ ] Website publicly accessible at devopstoolkit.ai
+- [ ] Automated deployment working via GitOps
 - [ ] HTTPS enabled
 - [ ] Build completes successfully
 
@@ -259,7 +265,9 @@ A future tool in the dot-ai MCP that would:
 - Docusaurus framework
 - Node.js runtime
 - GitHub Actions for CI/CD
-- GitHub Pages for hosting
+- Container registry (GitHub Container Registry or similar)
+- Kubernetes cluster for hosting
+- GitOps tool (Argo CD or similar)
 
 ## Risks & Mitigation
 
@@ -284,6 +292,146 @@ A future tool in the dot-ai MCP that would:
 
 ## Progress Log
 
+### 2025-12-10 - Milestone 4: Dockerfile Created
+**Completed**:
+- Created multi-stage Dockerfile (Node.js 20-alpine builder → Nginx 1.29-alpine runtime)
+- Implemented security best practices: non-root user (appuser:appgroup), port 8080
+- Added performance optimizations: gzip compression, static asset caching (1-year expiry)
+- Configured SPA routing with try_files fallback to index.html
+- Created .dockerignore to exclude node_modules, build artifacts, secrets
+
+**Design Decision**: Docs are fetched in CI before `docker build` (not inside Dockerfile). This keeps the Dockerfile simpler and makes doc fetching a CI responsibility.
+
+**Files Created**:
+- `Dockerfile` - Multi-stage build for static site container
+- `.dockerignore` - Excludes unnecessary files from build context
+
+**Next**: Set up GitHub Actions workflow for container image build
+
+### 2025-12-10 - Deployment Architecture Decision
+**Decision**: Deploy as containerized application to Kubernetes using GitOps instead of GitHub Pages.
+
+**Rationale**:
+- Aligns with DevOps AI Toolkit's Kubernetes-native philosophy
+- Provides more deployment flexibility and control
+- Enables GitOps workflow consistency across the ecosystem
+- Viktor to implement: Dockerfile, GitHub Actions, Kubernetes manifests, GitOps pipeline
+
+**Impact**:
+- Updated Milestone 4 tasks and validation criteria
+- Changed external dependencies from GitHub Pages to Kubernetes/GitOps stack
+- Build flow now includes container image build and GitOps deployment
+
+**Owner**: Viktor (manual implementation)
+
+### 2025-12-10 - Theme, Branding & Navigation Polish
+**Completed**:
+- Applied exact logo colors (`#FACB00` yellow, `#2D2D2D` dark) throughout site
+- Added logo.jpeg to landing page hero section
+- Updated navbar to use logo.jpeg instead of placeholder logo.svg
+- Fixed link readability - changed to lighter blue (`#2196F3`)
+- Disabled dark mode toggle - site locked to light mode with brand colors
+- Reduced hero section padding for better visual balance
+- Added GitHub dropdown in navbar with both MCP Server and Controller repos
+- Added Controller Discussions link to footer Community section
+- Enabled GitHub Discussions for dot-ai-controller repository
+
+**Files Modified**:
+- `src/css/custom.css` - Brand colors, link colors, navbar/hero theming
+- `src/pages/index.tsx` - Added logo image to hero section
+- `src/pages/index.module.css` - Hero background color, reduced padding, logo styling
+- `docusaurus.config.ts` - Navbar logo, GitHub dropdown, discussions links, disabled dark mode
+- `static/img/logo.jpeg` - New logo file added
+
+**Next**: Milestone 4 - CI/CD & Deployment
+
+### 2025-12-10 - Docs Fetch Exclusions & Source Repo Reorganization
+**Completed**:
+- Updated `fetch-docs.sh` to exclude `dev/` directory and `CLAUDE.md` (development-only docs)
+- Re-fetched docs after source repos added `sidebar_position` frontmatter
+- MCP docs now organized: Introduction → Quick Start → Setup (category) → Guides (category) → Agents Architecture
+- Controller docs now organized: Introduction → Setup Guide → Remediation Guide → Solution CRD Guide → Troubleshooting
+- Build passes with no broken links
+
+**Files Modified**:
+- `scripts/fetch-docs.sh` - Added `rm -rf "$target_dir/dev"` and `rm -f "$target_dir/CLAUDE.md"`
+
+**Next**: Apply theme colors, landing page redesign, then Milestone 4 (CI/CD)
+
+### 2025-12-10 - Add Mermaid Diagram Support
+**Completed**:
+- Installed `@docusaurus/theme-mermaid@3.9.2`
+- Configured Mermaid in `docusaurus.config.ts` with `markdown.mermaid: true` and theme registration
+- Verified build succeeds
+
+**Note**: Source repos don't currently contain Mermaid diagrams, but infrastructure is ready for when they're added.
+
+**Next**: Continue with remaining pending tasks (theme colors, landing page redesign, fetch exclusions)
+
+### 2025-12-10 - Landing Page Polish: Remove Get Started Button
+**Completed**:
+- Removed "Get Started" button from hero section - with two projects, project cards serve as primary entry points
+- Cleaned up unused `.buttons` CSS class from `index.module.css`
+- Verified build succeeds and landing page displays correctly
+
+**Files Modified**:
+- `src/pages/index.tsx` - Removed button wrapper div
+- `src/pages/index.module.css` - Removed unused `.buttons` style
+
+**Next**: Continue with remaining pending tasks (Mermaid support, theme colors, landing page redesign)
+
+### 2025-12-10 - Milestone 3 Complete
+**Completed**:
+- Integrated documentation from both source repos (dot-ai, dot-ai-controller)
+- Fixed broken links in source repos and re-fetched docs
+- Added `fix_intro_links()` function to `fetch-docs.sh` to transform `docs/` prefix links in README→intro.md
+- Added exclusion of non-user-facing docs (GOVERNANCE.md, MAINTAINERS.md, ROADMAP.md, setup/development-setup.md)
+- Installed and configured `@easyops-cn/docusaurus-search-local` for multi-docs search
+- Verified build succeeds with `onBrokenLinks: 'throw'` (only anchor warnings remain)
+- Search functionality works in production builds
+
+**Technical Notes**:
+- Search plugin only works in production builds (`npm run build && npm run serve`), not dev mode - this is expected behavior
+- Link transformation regex: `s/(\.\{0,1\}\/\{0,1\}docs\/\([^)]*\))/(\.\/\1)/g`
+
+**Next**: Milestone 4 - CI/CD & Deployment
+
+### 2025-12-10 - Design Decisions (Pre-Milestone 4)
+**Decisions Made**:
+- Remove "Get Started" button from landing page - with two projects, project cards serve as primary entry points
+- Add Mermaid diagram support (`@docusaurus/theme-mermaid`) - source docs contain Mermaid diagrams
+- Apply logo-derived theme colors (#3ECC5F, #44D860) to replace default Docusaurus green
+- Redesign landing page for visual polish and mobile responsiveness
+- Exclude `docs/dev/` directory from fetch (development-only docs like CLAUDE.md, integration-testing-guide.md)
+- Source repos will reorganize docs with `sidebar_position` frontmatter and `_category_.yml` for better navigation
+
+**Pending Tasks** (before CI/CD):
+- [x] Remove "Get Started" button
+- [x] Add Mermaid support
+- [x] Apply theme colors
+- [x] Landing page redesign (logo, branding, navigation)
+- [x] Update fetch-docs.sh to exclude `dev/` directory
+- [x] Re-fetch docs after source repo reorganization
+
+**Final Tasks** (after launch):
+- [ ] Add this website to both source project READMEs with link to devopstoolkit.ai
+
+### 2025-12-10 - Milestone 1 Complete + Milestone 2 Partial
+**Completed**:
+- Initialized Docusaurus 3.9.2 project with TypeScript
+- Configured multi-docs instances (mcp, controller) via plugins
+- Created sidebars (`sidebars/mcp.ts`, `sidebars/controller.ts`)
+- Created `scripts/fetch-docs.sh` with docs-exclude marker support for stripping GitHub-specific content
+- Implemented landing page with hero section and project cards
+- Added Playwright MCP for browser-based testing
+- Verified local dev server and navigation via Playwright
+
+**Decisions Made**:
+- URL: `https://devopstoolkit.ai`
+- No hardcoded feature list on landing page (to avoid outdated content)
+- Source repos use `<!-- docs-exclude-start/end -->` markers to strip badges/images for docs portal
+- README.md copied as `intro.md` during fetch
+
 ### [Date] - PRD Created
 - Created dot-ai-website repository
 - Initial PRD with 5 major milestones
@@ -292,6 +440,6 @@ A future tool in the dot-ai MCP that would:
 
 ---
 
-**Last Updated**: 2025-12-08
-**Status**: Planning
-**Next Action**: Review PRD, then begin Milestone 1
+**Last Updated**: 2025-12-10
+**Status**: In Progress (Milestones 1, 2, 3 complete; Milestone 4 started - Dockerfile done)
+**Next Action**: Set up GitHub Actions workflow for container image build
