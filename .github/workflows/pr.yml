@@ -1,0 +1,58 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup DevBox
+        uses: jetify-com/devbox-install-action@v0.14.0
+        with:
+          enable-cache: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint Dockerfile
+        run: devbox run hadolint Dockerfile
+
+      - name: Fetch documentation
+        run: ./scripts/fetch-docs.sh
+
+      - name: Build site
+        run: npm run build
+
+      - name: Build container
+        run: docker build -t dot-ai-website:pr-${{ github.event.pull_request.number }} .
+
+      - name: Run smoke test
+        run: |
+          docker run -d --name smoke-test -p 8080:8080 dot-ai-website:pr-${{ github.event.pull_request.number }}
+          sleep 5
+          ./scripts/smoke-test.sh
+          docker stop smoke-test
+          docker rm smoke-test
+
+      - name: Trivy vulnerability scan
+        run: devbox run trivy image --exit-code 1 --severity HIGH,CRITICAL dot-ai-website:pr-${{ github.event.pull_request.number }}
