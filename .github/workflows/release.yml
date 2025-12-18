@@ -1,6 +1,11 @@
 name: Release
 
 on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'k8s/overlays/production/kustomization.yaml'
   repository_dispatch:
     types: [upstream-release]
   workflow_dispatch:
