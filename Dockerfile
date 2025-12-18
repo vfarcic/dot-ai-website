@@ -39,6 +39,9 @@ RUN printf 'server {\n\
     root /usr/share/nginx/html;\n\
     index index.html;\n\
 \n\
+    # Use relative redirects to work correctly behind reverse proxy\n\
+    absolute_redirect off;\n\
+\n\
     # Enable gzip compression\n\
     gzip on;\n\
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;\n\
