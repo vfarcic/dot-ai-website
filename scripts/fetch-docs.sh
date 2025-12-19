@@ -28,22 +28,6 @@ process_markdown() {
   mv "$temp_file" "$file"
 }
 
-# Function to fix links in intro.md (from README.md)
-# Transforms docs/foo.md and ./docs/foo.md to ./foo.md
-fix_intro_links() {
-  file="$1"
-  temp_file="${file}.tmp"
-
-  # Transform:
-  # (docs/foo.md) -> (./foo.md)
-  # (./docs/foo.md) -> (./foo.md)
-  # (docs/foo.md#anchor) -> (./foo.md#anchor)
-  sed -e 's/(\.\{0,1\}\/\{0,1\}docs\/\([^)]*\))/(.\/\1)/g' \
-      "$file" > "$temp_file"
-
-  mv "$temp_file" "$file"
-}
-
 # Function to fetch docs from a repo
 fetch_docs() {
   project="$1"
@@ -76,15 +60,6 @@ fetch_docs() {
     mkdir -p "$target_dir"
     cp -r "$temp_repo/$docs_path/"* "$target_dir/"
 
-    # Copy README.md as intro.md if it exists and intro.md doesn't
-    if [ -f "$temp_repo/README.md" ] && [ ! -f "$target_dir/intro.md" ]; then
-      echo "Copying README.md as intro.md..."
-      cp "$temp_repo/README.md" "$target_dir/intro.md"
-      # Fix links in intro.md (README links use docs/ prefix which breaks when intro.md is inside docs/)
-      echo "Fixing links in intro.md..."
-      fix_intro_links "$target_dir/intro.md"
-    fi
-
     # Remove non-user-facing docs (governance/contributor docs, dev-only docs)
     echo "Removing non-user-facing docs..."
     rm -f "$target_dir/GOVERNANCE.md"
@@ -104,7 +79,7 @@ fetch_docs() {
     echo "Warning: No docs directory found at $temp_repo/$docs_path"
     echo "Creating placeholder..."
     mkdir -p "$target_dir"
-    cat > "$target_dir/intro.md" << EOF
+    cat > "$target_dir/index.md" << EOF
 ---
 sidebar_position: 1
 ---
