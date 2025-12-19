@@ -95,12 +95,12 @@ const config: Config = {
       },
       items: [
         {
-          to: '/docs/mcp/intro',
+          to: '/docs/mcp',
           label: 'MCP Server',
           position: 'left',
         },
         {
-          to: '/docs/controller/intro',
+          to: '/docs/controller',
           label: 'Controller',
           position: 'left',
         },
@@ -129,11 +129,11 @@ const config: Config = {
           items: [
             {
               label: 'MCP Server',
-              to: '/docs/mcp/intro',
+              to: '/docs/mcp',
             },
             {
               label: 'Controller',
-              to: '/docs/controller/intro',
+              to: '/docs/controller',
             },
           ],
         },

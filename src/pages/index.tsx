@@ -38,7 +38,7 @@ function ProjectsSection() {
                 Model Context Protocol server that brings AI-powered capabilities
                 to your Kubernetes workflows through natural language interaction.
               </p>
-              <Link className="button button--primary" to="/docs/mcp/intro">
+              <Link className="button button--primary" to="/docs/mcp">
                 View Docs
               </Link>
             </div>
@@ -50,7 +50,7 @@ function ProjectsSection() {
                 Kubernetes controller for resource tracking and event-driven
                 operations in your clusters.
               </p>
-              <Link className="button button--primary" to="/docs/controller/intro">
+              <Link className="button button--primary" to="/docs/controller">
                 View Docs
               </Link>
             </div>
