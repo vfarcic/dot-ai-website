@@ -20,7 +20,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # Project specific
-.env.vals.yaml
 /tmp
 .temp-repos
 
