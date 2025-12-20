@@ -6,6 +6,7 @@ const sidebars: SidebarsConfig = {
     'setup-guide',
     'remediation-guide',
     'solution-guide',
+    'resource-sync-guide',
     'troubleshooting',
   ],
 };
