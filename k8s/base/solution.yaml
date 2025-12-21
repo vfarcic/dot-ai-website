@@ -1,0 +1,27 @@
+apiVersion: dot-ai.devopstoolkit.live/v1alpha1
+kind: Solution
+metadata:
+  name: dot-ai-website
+spec:
+  intent: "Deploy the dot-ai website with TLS and Gateway API routing"
+  documentationURL: "https://github.com/vfarcic/dot-ai-website"
+  context:
+    createdBy: "port-action"
+    rationale: "Production website for devopstoolkit.ai served via Gateway API"
+  resources:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: dot-ai-website
+      namespace: dot-ai
+    - apiVersion: v1
+      kind: Service
+      name: dot-ai-website
+      namespace: dot-ai
+    - apiVersion: cert-manager.io/v1
+      kind: Certificate
+      name: dot-ai-website-tls
+      namespace: dot-ai
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      name: dot-ai-website
+      namespace: dot-ai
