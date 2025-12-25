@@ -34,7 +34,6 @@ const sidebars: SidebarsConfig = {
         'guides/rest-api-gateway-guide',
       ],
     },
-    'diags',
   ],
 };
 
