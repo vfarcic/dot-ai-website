@@ -24,6 +24,7 @@ const sidebars: SidebarsConfig = {
         'guides/mcp-recommendation-guide',
         'guides/mcp-remediate-guide',
         'guides/mcp-operate-guide',
+        'guides/mcp-query-guide',
         'guides/mcp-prompts-guide',
         'guides/mcp-project-setup-guide',
         'guides/mcp-capability-management-guide',
