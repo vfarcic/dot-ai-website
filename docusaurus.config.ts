@@ -53,11 +53,21 @@ const config: Config = {
       },
     ],
     [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'ui',
+        path: 'docs/ui',
+        routeBasePath: 'docs/ui',
+        sidebarPath: './sidebars/ui.ts',
+        editUrl: 'https://github.com/vfarcic/dot-ai-ui/tree/main/docs/',
+      },
+    ],
+    [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
-        docsRouteBasePath: ['/docs/mcp', '/docs/controller'],
-        docsDir: ['docs/mcp', 'docs/controller'],
+        docsRouteBasePath: ['/docs/mcp', '/docs/controller', '/docs/ui'],
+        docsDir: ['docs/mcp', 'docs/controller', 'docs/ui'],
         docsPluginIdForPreferredVersion: 'mcp',
         indexBlog: false,
         highlightSearchTermsOnTargetPage: true,
@@ -105,6 +115,11 @@ const config: Config = {
           position: 'left',
         },
         {
+          to: '/docs/ui',
+          label: 'Web UI',
+          position: 'left',
+        },
+        {
           type: 'dropdown',
           label: 'GitHub',
           position: 'right',
@@ -116,6 +131,10 @@ const config: Config = {
             {
               href: 'https://github.com/vfarcic/dot-ai-controller',
               label: 'Controller',
+            },
+            {
+              href: 'https://github.com/vfarcic/dot-ai-ui',
+              label: 'Web UI',
             },
           ],
         },
@@ -135,6 +154,10 @@ const config: Config = {
               label: 'Controller',
               to: '/docs/controller',
             },
+            {
+              label: 'Web UI',
+              to: '/docs/ui',
+            },
           ],
         },
         {
@@ -148,6 +171,10 @@ const config: Config = {
               label: 'Controller Discussions',
               href: 'https://github.com/vfarcic/dot-ai-controller/discussions',
             },
+            {
+              label: 'Web UI Discussions',
+              href: 'https://github.com/vfarcic/dot-ai-ui/discussions',
+            },
           ],
         },
         {
@@ -160,6 +187,10 @@ const config: Config = {
             {
               label: 'Controller GitHub',
               href: 'https://github.com/vfarcic/dot-ai-controller',
+            },
+            {
+              label: 'Web UI GitHub',
+              href: 'https://github.com/vfarcic/dot-ai-ui',
             },
           ],
         },
