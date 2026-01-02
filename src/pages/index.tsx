@@ -31,7 +31,7 @@ function ProjectsSection() {
     <section className={styles.projects}>
       <div className="container">
         <div className="row">
-          <div className={clsx('col col--6')}>
+          <div className={clsx('col col--4')}>
             <div className="card margin--md padding--lg">
               <Heading as="h3">MCP Server</Heading>
               <p>
@@ -43,7 +43,7 @@ function ProjectsSection() {
               </Link>
             </div>
           </div>
-          <div className={clsx('col col--6')}>
+          <div className={clsx('col col--4')}>
             <div className="card margin--md padding--lg">
               <Heading as="h3">Controller</Heading>
               <p>
@@ -51,6 +51,18 @@ function ProjectsSection() {
                 operations in your clusters.
               </p>
               <Link className="button button--primary" to="/docs/controller">
+                View Docs
+              </Link>
+            </div>
+          </div>
+          <div className={clsx('col col--4')}>
+            <div className="card margin--md padding--lg">
+              <Heading as="h3">Web UI</Heading>
+              <p>
+                Web-based user interface for interacting with dot-ai capabilities
+                through a visual dashboard.
+              </p>
+              <Link className="button button--primary" to="/docs/ui">
                 View Docs
               </Link>
             </div>
