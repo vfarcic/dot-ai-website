@@ -32,7 +32,14 @@ function ProjectsSection() {
       <div className="container">
         <div className="row">
           <div className={clsx('col col--4')}>
-            <div className="card margin--md padding--lg">
+            <div className={clsx('card padding--lg', styles.projectCard)}>
+              <div className={styles.projectLogoContainer}>
+                <img
+                  src="/img/logo-mcp.jpeg"
+                  alt="MCP Server"
+                  className={styles.projectLogo}
+                />
+              </div>
               <Heading as="h3">MCP Server</Heading>
               <p>
                 Model Context Protocol server that brings AI-powered capabilities
@@ -44,7 +51,14 @@ function ProjectsSection() {
             </div>
           </div>
           <div className={clsx('col col--4')}>
-            <div className="card margin--md padding--lg">
+            <div className={clsx('card padding--lg', styles.projectCard)}>
+              <div className={styles.projectLogoContainer}>
+                <img
+                  src="/img/logo-controller.jpeg"
+                  alt="Controller"
+                  className={styles.projectLogo}
+                />
+              </div>
               <Heading as="h3">Controller</Heading>
               <p>
                 Kubernetes controller for resource tracking and event-driven
@@ -56,7 +70,14 @@ function ProjectsSection() {
             </div>
           </div>
           <div className={clsx('col col--4')}>
-            <div className="card margin--md padding--lg">
+            <div className={clsx('card padding--lg', styles.projectCard)}>
+              <div className={styles.projectLogoContainer}>
+                <img
+                  src="/img/logo-ui.jpeg"
+                  alt="Web UI"
+                  className={styles.projectLogo}
+                />
+              </div>
               <Heading as="h3">Web UI</Heading>
               <p>
                 Web-based user interface for interacting with dot-ai capabilities

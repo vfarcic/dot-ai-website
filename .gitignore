@@ -24,8 +24,10 @@ yarn-error.log*
 .temp-repos
 
 # Fetched docs (regenerated from source repos)
-/docs/mcp
-/docs/controller
+/docs
+
+# Playwright MCP
+/.playwright-mcp
 
 /kubeconfig*.yaml
 /gke_gcloud_auth_plugin_cache

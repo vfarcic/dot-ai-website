@@ -4,12 +4,20 @@
  */
 
 .heroBanner {
-  padding: 1.5rem 0;
+  padding: 0.75rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
   background-color: #FACB00;
   color: #2D2D2D;
+}
+
+.heroBanner h1 {
+  margin-bottom: 0.25rem;
+}
+
+.heroBanner p {
+  margin-bottom: 0;
 }
 
 .heroLogo {
@@ -31,4 +39,25 @@
 
 .projects .card {
   height: 100%;
+}
+
+.projectCard {
+  margin: 0.15rem;
+}
+
+.projectLogoContainer {
+  width: calc(100% + 4rem);
+  margin: -2rem -2rem 1rem -2rem;
+  padding: 0 2rem;
+  background-color: #FACB00;
+  border-radius: var(--ifm-card-border-radius) var(--ifm-card-border-radius) 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.projectLogo {
+  width: 60%;
+  height: auto;
+  display: block;
 }
