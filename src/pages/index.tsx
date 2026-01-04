@@ -59,61 +59,67 @@ function ProjectsSection() {
         </div>
         <div className="row">
           <div className={clsx('col col--4')}>
-            <div className={clsx('card padding--lg', styles.projectCard)}>
-              <div className={styles.projectLogoContainer}>
-                <img
-                  src="/img/logo-mcp.jpeg"
-                  alt="MCP Server"
-                  className={styles.projectLogo}
-                />
+            <Link to="/docs/mcp" className={styles.projectLink}>
+              <div className={clsx('card padding--lg', styles.projectCard)}>
+                <div className={styles.projectLogoContainer}>
+                  <img
+                    src="/img/logo-mcp.jpeg"
+                    alt="MCP Server"
+                    className={styles.projectLogo}
+                  />
+                </div>
+                <Heading as="h3">MCP Server</Heading>
+                <p>
+                  Model Context Protocol server that brings AI-powered capabilities
+                  to your Kubernetes workflows through natural language interaction.
+                </p>
+                <span className="button button--primary">
+                  View Docs
+                </span>
               </div>
-              <Heading as="h3">MCP Server</Heading>
-              <p>
-                Model Context Protocol server that brings AI-powered capabilities
-                to your Kubernetes workflows through natural language interaction.
-              </p>
-              <Link className="button button--primary" to="/docs/mcp">
-                View Docs
-              </Link>
-            </div>
+            </Link>
           </div>
           <div className={clsx('col col--4')}>
-            <div className={clsx('card padding--lg', styles.projectCard)}>
-              <div className={styles.projectLogoContainer}>
-                <img
-                  src="/img/logo-controller.jpeg"
-                  alt="Controller"
-                  className={styles.projectLogo}
-                />
+            <Link to="/docs/controller" className={styles.projectLink}>
+              <div className={clsx('card padding--lg', styles.projectCard)}>
+                <div className={styles.projectLogoContainer}>
+                  <img
+                    src="/img/logo-controller.jpeg"
+                    alt="Controller"
+                    className={styles.projectLogo}
+                  />
+                </div>
+                <Heading as="h3">Controller</Heading>
+                <p>
+                  Kubernetes controller for resource tracking and event-driven
+                  operations in your clusters.
+                </p>
+                <span className="button button--primary">
+                  View Docs
+                </span>
               </div>
-              <Heading as="h3">Controller</Heading>
-              <p>
-                Kubernetes controller for resource tracking and event-driven
-                operations in your clusters.
-              </p>
-              <Link className="button button--primary" to="/docs/controller">
-                View Docs
-              </Link>
-            </div>
+            </Link>
           </div>
           <div className={clsx('col col--4')}>
-            <div className={clsx('card padding--lg', styles.projectCard)}>
-              <div className={styles.projectLogoContainer}>
-                <img
-                  src="/img/logo-ui.jpeg"
-                  alt="Web UI"
-                  className={styles.projectLogo}
-                />
+            <Link to="/docs/ui" className={styles.projectLink}>
+              <div className={clsx('card padding--lg', styles.projectCard)}>
+                <div className={styles.projectLogoContainer}>
+                  <img
+                    src="/img/logo-ui.jpeg"
+                    alt="Web UI"
+                    className={styles.projectLogo}
+                  />
+                </div>
+                <Heading as="h3">Web UI</Heading>
+                <p>
+                  Web-based user interface for interacting with dot-ai capabilities
+                  through a visual dashboard.
+                </p>
+                <span className="button button--primary">
+                  View Docs
+                </span>
               </div>
-              <Heading as="h3">Web UI</Heading>
-              <p>
-                Web-based user interface for interacting with dot-ai capabilities
-                through a visual dashboard.
-              </p>
-              <Link className="button button--primary" to="/docs/ui">
-                View Docs
-              </Link>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

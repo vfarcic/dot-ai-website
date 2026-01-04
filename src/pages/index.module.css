@@ -41,8 +41,25 @@
   height: 100%;
 }
 
+.projectLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.projectLink:hover {
+  text-decoration: none;
+}
+
 .projectCard {
   margin: 0.15rem;
+  transition: all 0.2s ease;
+}
+
+.projectCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .projectLogoContainer {
