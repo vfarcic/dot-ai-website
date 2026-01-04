@@ -63,11 +63,21 @@ const config: Config = {
       },
     ],
     [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'stack',
+        path: 'docs/stack',
+        routeBasePath: 'docs/stack',
+        sidebarPath: './sidebars/stack.ts',
+        editUrl: 'https://github.com/vfarcic/dot-ai-stack/tree/main/docs/',
+      },
+    ],
+    [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
-        docsRouteBasePath: ['/docs/mcp', '/docs/controller', '/docs/ui'],
-        docsDir: ['docs/mcp', 'docs/controller', 'docs/ui'],
+        docsRouteBasePath: ['/docs/mcp', '/docs/controller', '/docs/ui', '/docs/stack'],
+        docsDir: ['docs/mcp', 'docs/controller', 'docs/ui', 'docs/stack'],
         docsPluginIdForPreferredVersion: 'mcp',
         indexBlog: false,
         highlightSearchTermsOnTargetPage: true,
@@ -105,6 +115,11 @@ const config: Config = {
       },
       items: [
         {
+          to: '/docs/stack',
+          label: 'Getting Started',
+          position: 'left',
+        },
+        {
           to: '/docs/mcp',
           label: 'MCP Server',
           position: 'left',
@@ -124,6 +139,10 @@ const config: Config = {
           label: 'GitHub',
           position: 'right',
           items: [
+            {
+              href: 'https://github.com/vfarcic/dot-ai-stack',
+              label: 'Stack',
+            },
             {
               href: 'https://github.com/vfarcic/dot-ai',
               label: 'MCP Server',
@@ -146,6 +165,10 @@ const config: Config = {
         {
           title: 'Documentation',
           items: [
+            {
+              label: 'Getting Started',
+              to: '/docs/stack',
+            },
             {
               label: 'MCP Server',
               to: '/docs/mcp',
@@ -180,6 +203,10 @@ const config: Config = {
         {
           title: 'More',
           items: [
+            {
+              label: 'Stack GitHub',
+              href: 'https://github.com/vfarcic/dot-ai-stack',
+            },
             {
               label: 'MCP Server GitHub',
               href: 'https://github.com/vfarcic/dot-ai',

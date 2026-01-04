@@ -61,3 +61,73 @@
   height: auto;
   display: block;
 }
+
+.gettingStartedLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.gettingStartedLink:hover {
+  text-decoration: none;
+}
+
+.gettingStartedCard {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  border: none;
+  padding: 0;
+}
+
+.gettingStartedCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.gettingStartedLogoContainer {
+  background-color: #FACB00;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gettingStartedLogo {
+  width: 70px;
+  height: 70px;
+  display: block;
+}
+
+.gettingStartedTextContainer {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  gap: 2rem;
+}
+
+.gettingStartedText {
+  flex: 1;
+}
+
+.gettingStartedText p {
+  margin-bottom: 0;
+}
+
+.gettingStartedText h3 {
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .gettingStartedCard {
+    flex-direction: column;
+  }
+
+  .gettingStartedTextContainer {
+    flex-direction: column;
+    text-align: center;
+  }
+}

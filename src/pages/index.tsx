@@ -30,6 +30,33 @@ function ProjectsSection() {
   return (
     <section className={styles.projects}>
       <div className="container">
+        <div className="row margin-bottom--md">
+          <div className="col col--12">
+            <Link to="/docs/stack" className={styles.gettingStartedLink}>
+              <div className={clsx('card', styles.gettingStartedCard)}>
+                <div className={styles.gettingStartedLogoContainer}>
+                  <img
+                    src="/img/logo-stack.jpeg"
+                    alt="Getting Started"
+                    className={styles.gettingStartedLogo}
+                  />
+                </div>
+                <div className={styles.gettingStartedTextContainer}>
+                  <div className={styles.gettingStartedText}>
+                    <Heading as="h3">Getting Started</Heading>
+                    <p>
+                      Deploy the complete DevOps AI Toolkit stack with a single Helm command.
+                      The fastest way to get up and running.
+                    </p>
+                  </div>
+                  <span className="button button--primary">
+                    Start Here →
+                  </span>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
         <div className="row">
           <div className={clsx('col col--4')}>
             <div className={clsx('card padding--lg', styles.projectCard)}>
