@@ -21,8 +21,11 @@ process_markdown() {
   # Use sed to:
   # 1. Remove multi-line blocks: <!-- docs-exclude-start --> ... <!-- docs-exclude-end -->
   # 2. Remove single-line markers: <!-- docs-exclude -->...
+  # 3. Convert absolute devopstoolkit.ai URLs to relative paths (so they don't open in new tab)
   sed -e '/<!-- docs-exclude-start -->/,/<!-- docs-exclude-end -->/d' \
       -e '/<!-- docs-exclude -->/d' \
+      -e 's|https://devopstoolkit\.ai/docs/|/docs/|g' \
+      -e 's|https://devopstoolkit\.ai|/|g' \
       "$file" > "$temp_file"
 
   mv "$temp_file" "$file"
