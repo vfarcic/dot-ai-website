@@ -33,6 +33,7 @@ const sidebars: SidebarsConfig = {
         'guides/policy-management-guide',
         'guides/observability-guide',
         'guides/rest-api-gateway-guide',
+        'guides/mcp-version-guide',
       ],
     },
   ],
