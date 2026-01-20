@@ -34,6 +34,7 @@ const sidebars: SidebarsConfig = {
         'guides/mcp-version-guide',
         'guides/observability-guide',
         'guides/rest-api-gateway-guide',
+        'guides/telemetry-guide',
       ],
     },
   ],
