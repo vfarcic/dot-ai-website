@@ -24,6 +24,9 @@ RUN npm run build
 # Runtime stage - use Nginx Alpine to serve static files
 FROM nginx:1.29-alpine
 
+# Update Alpine packages to fix vulnerabilities
+RUN apk upgrade --no-cache
+
 # Create non-root user
 RUN addgroup -g 10001 -S appgroup && \
     adduser -u 10001 -S appuser -G appgroup

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    ":automergePatch",
+    "docker:enableMajor",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "labels": ["dependencies"],
+  "schedule": ["before 6am on monday"],
+  "timezone": "UTC",
+  "prConcurrentLimit": 5,
+  "packageRules": [
+    {
+      "description": "Group Docusaurus packages",
+      "groupName": "docusaurus",
+      "matchPackagePatterns": ["^@docusaurus/"],
+      "matchManagers": ["npm"]
+    },
+    {
+      "description": "Group React packages",
+      "groupName": "react",
+      "matchPackageNames": ["react", "react-dom", "@mdx-js/react"],
+      "matchManagers": ["npm"]
+    },
+    {
+      "description": "Group GitHub Actions",
+      "groupName": "github-actions",
+      "matchManagers": ["github-actions"]
+    },
+    {
+      "description": "Group Devbox packages",
+      "groupName": "devbox",
+      "matchManagers": ["devbox"]
+    },
+    {
+      "description": "Automerge minor and patch Docker updates",
+      "matchManagers": ["dockerfile"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "description": "Automerge minor and patch npm updates",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    }
+  ]
+}
