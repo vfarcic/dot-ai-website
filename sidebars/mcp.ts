@@ -9,11 +9,7 @@ const sidebars: SidebarsConfig = {
       label: 'Setup',
       items: [
         'setup/mcp-setup',
-        'setup/npx-setup',
-        'setup/docker-setup',
-        'setup/kubernetes-setup',
-        'setup/kubernetes-toolhive-setup',
-        'setup/kagent-setup',
+        'setup/gateway-api',
       ],
     },
     {
