@@ -37,6 +37,7 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: true
+          submodules: true
 
       - name: Setup DevBox
         uses: jetify-com/devbox-install-action@v0.14.0
