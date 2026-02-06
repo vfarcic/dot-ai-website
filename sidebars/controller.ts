@@ -7,6 +7,7 @@ const sidebars: SidebarsConfig = {
     'remediation-guide',
     'resource-sync-guide',
     'capability-scan-guide',
+    'knowledge-source-guide',
     'solution-guide',
     'troubleshooting',
   ],

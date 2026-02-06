@@ -27,6 +27,7 @@ const sidebars: SidebarsConfig = {
         'guides/organizational-data-concepts',
         'guides/pattern-management-guide',
         'guides/policy-management-guide',
+        'guides/mcp-knowledge-base-guide',
         'guides/mcp-version-guide',
         'guides/observability-guide',
         'guides/rest-api-gateway-guide',
