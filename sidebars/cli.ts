@@ -17,8 +17,8 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Guides',
       items: [
-        'guides/commands',
-        'guides/skills',
+        'guides/cli-commands-overview',
+        'guides/skills-generation',
         'guides/output-formats',
         'guides/automation',
       ],
