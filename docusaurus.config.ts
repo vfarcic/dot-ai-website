@@ -45,6 +45,16 @@ const config: Config = {
     [
       '@docusaurus/plugin-content-docs',
       {
+        id: 'cli',
+        path: 'docs/cli',
+        routeBasePath: 'docs/cli',
+        sidebarPath: './sidebars/cli.ts',
+        editUrl: 'https://github.com/vfarcic/dot-ai-cli/tree/main/docs/',
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
         id: 'controller',
         path: 'docs/controller',
         routeBasePath: 'docs/controller',
@@ -76,8 +86,8 @@ const config: Config = {
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
-        docsRouteBasePath: ['/docs/mcp', '/docs/controller', '/docs/ui', '/docs/stack'],
-        docsDir: ['docs/mcp', 'docs/controller', 'docs/ui', 'docs/stack'],
+        docsRouteBasePath: ['/docs/mcp', '/docs/cli', '/docs/controller', '/docs/ui', '/docs/stack'],
+        docsDir: ['docs/mcp', 'docs/cli', 'docs/controller', 'docs/ui', 'docs/stack'],
         docsPluginIdForPreferredVersion: 'mcp',
         indexBlog: false,
         highlightSearchTermsOnTargetPage: true,
@@ -125,6 +135,11 @@ const config: Config = {
           position: 'left',
         },
         {
+          to: '/docs/cli',
+          label: 'CLI',
+          position: 'left',
+        },
+        {
           to: '/docs/controller',
           label: 'Controller',
           position: 'left',
@@ -146,6 +161,10 @@ const config: Config = {
             {
               href: 'https://github.com/vfarcic/dot-ai',
               label: 'MCP Server',
+            },
+            {
+              href: 'https://github.com/vfarcic/dot-ai-cli',
+              label: 'CLI',
             },
             {
               href: 'https://github.com/vfarcic/dot-ai-controller',
@@ -174,6 +193,10 @@ const config: Config = {
               to: '/docs/mcp',
             },
             {
+              label: 'CLI',
+              to: '/docs/cli',
+            },
+            {
               label: 'Controller',
               to: '/docs/controller',
             },
@@ -189,6 +212,10 @@ const config: Config = {
             {
               label: 'MCP Server Discussions',
               href: 'https://github.com/vfarcic/dot-ai/discussions',
+            },
+            {
+              label: 'CLI Discussions',
+              href: 'https://github.com/vfarcic/dot-ai-cli/discussions',
             },
             {
               label: 'Controller Discussions',
@@ -210,6 +237,10 @@ const config: Config = {
             {
               label: 'MCP Server GitHub',
               href: 'https://github.com/vfarcic/dot-ai',
+            },
+            {
+              label: 'CLI GitHub',
+              href: 'https://github.com/vfarcic/dot-ai-cli',
             },
             {
               label: 'Controller GitHub',
