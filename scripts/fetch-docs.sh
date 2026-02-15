@@ -94,8 +94,50 @@ EOF
   fi
 }
 
-# Fetch docs from each repository
-fetch_docs "mcp" "https://github.com/vfarcic/dot-ai.git" "docs"
+# Fetch dot-ai docs (split into ai-engine and mcp sections)
+echo ""
+echo "=== Processing dot-ai (ai-engine + mcp) ==="
+DOTAI_REPO="https://github.com/vfarcic/dot-ai.git"
+DOTAI_TEMP="$TEMP_DIR/dot-ai"
+
+if [ -d "$DOTAI_TEMP" ]; then
+  echo "Updating existing clone..."
+  cd "$DOTAI_TEMP"
+  git fetch origin
+  git reset --hard origin/main
+  cd "$ROOT_DIR"
+else
+  echo "Cloning repository..."
+  git clone --depth 1 "$DOTAI_REPO" "$DOTAI_TEMP"
+fi
+
+for section in ai-engine mcp; do
+  target_dir="$DOCS_DIR/$section"
+  if [ -d "$DOTAI_TEMP/docs/$section" ]; then
+    echo "Copying $section docs to $target_dir..."
+    rm -rf "$target_dir"
+    mkdir -p "$target_dir"
+    cp -r "$DOTAI_TEMP/docs/$section/"* "$target_dir/"
+
+    echo "Removing non-user-facing docs from $section..."
+    rm -f "$target_dir/GOVERNANCE.md"
+    rm -f "$target_dir/MAINTAINERS.md"
+    rm -f "$target_dir/ROADMAP.md"
+    rm -f "$target_dir/CLAUDE.md"
+    rm -rf "$target_dir/dev"
+
+    echo "Processing markdown files in $section..."
+    find "$target_dir" -name "*.md" -type f | while read -r md_file; do
+      process_markdown "$md_file"
+    done
+
+    echo "Done processing $section docs."
+  else
+    echo "Warning: No docs directory found at $DOTAI_TEMP/docs/$section"
+  fi
+done
+
+# Fetch docs from other repositories
 fetch_docs "cli" "https://github.com/vfarcic/dot-ai-cli.git" "docs"
 fetch_docs "controller" "https://github.com/vfarcic/dot-ai-controller.git" "docs"
 fetch_docs "ui" "https://github.com/vfarcic/dot-ai-ui.git" "docs"

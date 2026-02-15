@@ -31,7 +31,7 @@ function ProjectsSection() {
     <section className={styles.projects}>
       <div className="container">
         <div className="row margin-bottom--md">
-          <div className="col col--12">
+          <div className="col col--6">
             <Link to="/docs/stack" className={styles.gettingStartedLink}>
               <div className={clsx('card', styles.gettingStartedCard)}>
                 <div className={styles.gettingStartedLogoContainer}>
@@ -56,22 +56,39 @@ function ProjectsSection() {
               </div>
             </Link>
           </div>
-        </div>
-        <div className="row">
-          <div className={clsx('col col--4')}>
-            <Link to="/docs/mcp" className={styles.projectLink}>
-              <div className={clsx('card padding--lg', styles.projectCard)}>
-                <div className={styles.projectLogoContainer}>
+          <div className="col col--6">
+            <Link to="/docs/ai-engine" className={styles.gettingStartedLink}>
+              <div className={clsx('card', styles.gettingStartedCard)}>
+                <div className={styles.gettingStartedLogoContainer}>
                   <img
                     src="/img/logo-mcp.jpeg"
-                    alt="MCP Server"
-                    className={styles.projectLogo}
+                    alt="AI Engine"
+                    className={styles.gettingStartedLogo}
                   />
                 </div>
-                <Heading as="h3">MCP Server</Heading>
+                <div className={styles.gettingStartedTextContainer}>
+                  <div className={styles.gettingStartedText}>
+                    <Heading as="h3">AI Engine</Heading>
+                    <p>
+                      The core AI engine powering Kubernetes operations — tools,
+                      deployment, configuration, and organizational data management.
+                    </p>
+                  </div>
+                  <span className="button button--primary">
+                    View Docs →
+                  </span>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+        <div className="row">
+          <div className={clsx('col col--3')}>
+            <Link to="/docs/mcp" className={styles.projectLink}>
+              <div className={clsx('card padding--lg', styles.projectCard)}>
+                <Heading as="h3">MCP</Heading>
                 <p>
-                  Model Context Protocol server that brings AI-powered capabilities
-                  to your Kubernetes workflows through natural language interaction.
+                  Connect to the AI Engine via the Model Context Protocol from any MCP client.
                 </p>
                 <span className="button button--primary">
                   View Docs
@@ -79,20 +96,25 @@ function ProjectsSection() {
               </div>
             </Link>
           </div>
-          <div className={clsx('col col--4')}>
+          <div className={clsx('col col--3')}>
+            <Link to="/docs/cli" className={styles.projectLink}>
+              <div className={clsx('card padding--lg', styles.projectCard)}>
+                <Heading as="h3">CLI</Heading>
+                <p>
+                  Command-line interface for direct interaction with the AI Engine from your terminal.
+                </p>
+                <span className="button button--primary">
+                  View Docs
+                </span>
+              </div>
+            </Link>
+          </div>
+          <div className={clsx('col col--3')}>
             <Link to="/docs/controller" className={styles.projectLink}>
               <div className={clsx('card padding--lg', styles.projectCard)}>
-                <div className={styles.projectLogoContainer}>
-                  <img
-                    src="/img/logo-controller.jpeg"
-                    alt="Controller"
-                    className={styles.projectLogo}
-                  />
-                </div>
                 <Heading as="h3">Controller</Heading>
                 <p>
-                  Kubernetes controller for resource tracking and event-driven
-                  operations in your clusters.
+                  Kubernetes controller for resource tracking and event-driven operations.
                 </p>
                 <span className="button button--primary">
                   View Docs
@@ -100,20 +122,12 @@ function ProjectsSection() {
               </div>
             </Link>
           </div>
-          <div className={clsx('col col--4')}>
+          <div className={clsx('col col--3')}>
             <Link to="/docs/ui" className={styles.projectLink}>
               <div className={clsx('card padding--lg', styles.projectCard)}>
-                <div className={styles.projectLogoContainer}>
-                  <img
-                    src="/img/logo-ui.jpeg"
-                    alt="Web UI"
-                    className={styles.projectLogo}
-                  />
-                </div>
                 <Heading as="h3">Web UI</Heading>
                 <p>
-                  Web-based user interface for interacting with dot-ai capabilities
-                  through a visual dashboard.
+                  Web-based interface for interacting with dot-ai through a visual dashboard.
                 </p>
                 <span className="button button--primary">
                   View Docs

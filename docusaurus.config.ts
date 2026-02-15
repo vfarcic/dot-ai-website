@@ -35,11 +35,21 @@ const config: Config = {
     [
       '@docusaurus/plugin-content-docs',
       {
+        id: 'ai-engine',
+        path: 'docs/ai-engine',
+        routeBasePath: 'docs/ai-engine',
+        sidebarPath: './sidebars/ai-engine.ts',
+        editUrl: 'https://github.com/vfarcic/dot-ai/tree/main/docs/ai-engine/',
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
         id: 'mcp',
         path: 'docs/mcp',
         routeBasePath: 'docs/mcp',
         sidebarPath: './sidebars/mcp.ts',
-        editUrl: 'https://github.com/vfarcic/dot-ai/tree/main/docs/',
+        editUrl: 'https://github.com/vfarcic/dot-ai/tree/main/docs/mcp/',
       },
     ],
     [
@@ -86,9 +96,9 @@ const config: Config = {
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
-        docsRouteBasePath: ['/docs/mcp', '/docs/cli', '/docs/controller', '/docs/ui', '/docs/stack'],
-        docsDir: ['docs/mcp', 'docs/cli', 'docs/controller', 'docs/ui', 'docs/stack'],
-        docsPluginIdForPreferredVersion: 'mcp',
+        docsRouteBasePath: ['/docs/ai-engine', '/docs/mcp', '/docs/cli', '/docs/controller', '/docs/ui', '/docs/stack'],
+        docsDir: ['docs/ai-engine', 'docs/mcp', 'docs/cli', 'docs/controller', 'docs/ui', 'docs/stack'],
+        docsPluginIdForPreferredVersion: 'ai-engine',
         indexBlog: false,
         highlightSearchTermsOnTargetPage: true,
         searchBarShortcutHint: false,
@@ -130,8 +140,13 @@ const config: Config = {
           position: 'left',
         },
         {
+          to: '/docs/ai-engine',
+          label: 'AI Engine',
+          position: 'left',
+        },
+        {
           to: '/docs/mcp',
-          label: 'MCP Server',
+          label: 'MCP',
           position: 'left',
         },
         {
@@ -160,7 +175,7 @@ const config: Config = {
             },
             {
               href: 'https://github.com/vfarcic/dot-ai',
-              label: 'MCP Server',
+              label: 'AI Engine / MCP',
             },
             {
               href: 'https://github.com/vfarcic/dot-ai-cli',
@@ -189,7 +204,11 @@ const config: Config = {
               to: '/docs/stack',
             },
             {
-              label: 'MCP Server',
+              label: 'AI Engine',
+              to: '/docs/ai-engine',
+            },
+            {
+              label: 'MCP',
               to: '/docs/mcp',
             },
             {
@@ -210,7 +229,7 @@ const config: Config = {
           title: 'Community',
           items: [
             {
-              label: 'MCP Server Discussions',
+              label: 'AI Engine / MCP Discussions',
               href: 'https://github.com/vfarcic/dot-ai/discussions',
             },
             {
@@ -235,7 +254,7 @@ const config: Config = {
               href: 'https://github.com/vfarcic/dot-ai-stack',
             },
             {
-              label: 'MCP Server GitHub',
+              label: 'AI Engine / MCP GitHub',
               href: 'https://github.com/vfarcic/dot-ai',
             },
             {
