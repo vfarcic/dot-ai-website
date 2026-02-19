@@ -149,4 +149,8 @@ rm -rf "$TEMP_DIR"
 echo "Temporary files cleaned up."
 
 echo ""
+echo "=== Generating llms.txt ==="
+"$SCRIPT_DIR/generate-llms-txt.sh"
+
+echo ""
 echo "Documentation fetch complete!"

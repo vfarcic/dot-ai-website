@@ -26,6 +26,11 @@ yarn-error.log*
 # Fetched docs (regenerated from source repos)
 /docs
 
+# Generated LLM files (regenerated from fetched docs)
+/static/docs
+/static/llms.txt
+/static/llms-full.txt
+
 # Playwright MCP
 /.playwright-mcp
 
