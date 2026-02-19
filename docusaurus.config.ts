@@ -292,11 +292,11 @@ const config: Config = {
             },
             {
               label: 'llms.txt',
-              href: '/llms.txt',
+              href: 'https://devopstoolkit.ai/llms.txt',
             },
             {
               label: 'llms-full.txt',
-              href: '/llms-full.txt',
+              href: 'https://devopstoolkit.ai/llms-full.txt',
             },
           ],
         },
