@@ -5,7 +5,7 @@ resources:
   - ../../base
 images:
   - name: ghcr.io/vfarcic/dot-ai-website
-    newTag: "0.7.0"
+    newTag: "0.7.1"
 replicas:
   - name: dot-ai-website
     count: 1
