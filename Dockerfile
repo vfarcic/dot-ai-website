@@ -45,6 +45,11 @@ RUN printf 'server {\n\
     # Use relative redirects to work correctly behind reverse proxy\n\
     absolute_redirect off;\n\
 \n\
+    # Serve .md files as text/plain for llms.txt spec compliance\n\
+    location ~* \\.md$ {\n\
+        default_type text/plain;\n\
+    }\n\
+\n\
     # Enable gzip compression\n\
     gzip on;\n\
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;\n\
