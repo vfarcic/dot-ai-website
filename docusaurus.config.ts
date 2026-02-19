@@ -21,6 +21,27 @@ const config: Config = {
   url: 'https://devopstoolkit.ai',
   baseUrl: '/',
 
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'alternate',
+        type: 'text/plain',
+        href: '/llms.txt',
+        title: 'LLM-friendly site index',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'alternate',
+        type: 'text/plain',
+        href: '/llms-full.txt',
+        title: 'LLM-friendly full documentation',
+      },
+    },
+  ],
+
   organizationName: 'vfarcic',
   projectName: 'dot-ai-website',
 
@@ -268,6 +289,14 @@ const config: Config = {
             {
               label: 'Web UI GitHub',
               href: 'https://github.com/vfarcic/dot-ai-ui',
+            },
+            {
+              label: 'llms.txt',
+              href: '/llms.txt',
+            },
+            {
+              label: 'llms-full.txt',
+              href: '/llms-full.txt',
             },
           ],
         },
