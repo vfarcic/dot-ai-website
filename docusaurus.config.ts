@@ -191,12 +191,12 @@ const config: Config = {
           position: 'right',
           items: [
             {
-              href: 'https://github.com/vfarcic/dot-ai-stack',
-              label: 'Stack',
-            },
-            {
               href: 'https://github.com/vfarcic/dot-ai',
               label: 'AI Engine / MCP',
+            },
+            {
+              href: 'https://github.com/vfarcic/dot-ai-stack',
+              label: 'Stack',
             },
             {
               href: 'https://github.com/vfarcic/dot-ai-cli',
