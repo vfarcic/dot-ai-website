@@ -17,10 +17,6 @@ spec:
       kind: Service
       name: dot-ai-website
       namespace: dot-ai
-    - apiVersion: cert-manager.io/v1
-      kind: Certificate
-      name: dot-ai-website-tls
-      namespace: dot-ai
     - apiVersion: gateway.networking.k8s.io/v1
       kind: HTTPRoute
       name: dot-ai-website
