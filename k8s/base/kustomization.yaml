@@ -4,6 +4,5 @@ resources:
   - namespace.yaml
   - deployment.yaml
   - service.yaml
-  - certificate.yaml
   - httproute.yaml
   - solution.yaml
