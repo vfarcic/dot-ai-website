@@ -9,6 +9,7 @@ const sidebars: SidebarsConfig = {
       label: 'Setup',
       items: [
         'setup/installation',
+        'setup/authentication',
         'setup/configuration',
         'setup/shell-completion',
       ],
@@ -21,6 +22,7 @@ const sidebars: SidebarsConfig = {
         'guides/skills-generation',
         'guides/output-formats',
         'guides/automation',
+        'guides/user-management',
       ],
     },
   ],
