@@ -138,15 +138,12 @@ jobs:
           git tag -a ${{ steps.version.outputs.tag }} -m "Release ${{ steps.version.outputs.tag }}"
           git push origin ${{ steps.version.outputs.tag }}
 
-      - name: Update Kustomize image tag
-        run: |
-          sed -i 's/newTag: .*/newTag: "${{ steps.version.outputs.version }}"/' k8s/overlays/production/kustomization.yaml
-
       - name: Commit and push Kustomize update
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+          sed -i 's/newTag: .*/newTag: "${{ steps.version.outputs.version }}"/' k8s/overlays/production/kustomization.yaml
           git add k8s/overlays/production/kustomization.yaml
           git commit -m "chore: update image tag to ${{ steps.version.outputs.version }} [skip ci]"
-          git pull --rebase origin main
           git push origin main
