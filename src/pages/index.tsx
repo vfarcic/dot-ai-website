@@ -135,6 +135,19 @@ function ProjectsSection() {
               </div>
             </Link>
           </div>
+          <div className={clsx('col col--3')}>
+            <Link to="/docs/headlamp" className={styles.projectLink}>
+              <div className={clsx('card padding--lg', styles.projectCard)}>
+                <Heading as="h3">Headlamp Plugin</Heading>
+                <p>
+                  AI-powered Kubernetes operations inside the Headlamp dashboard.
+                </p>
+                <span className="button button--primary">
+                  View Docs
+                </span>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

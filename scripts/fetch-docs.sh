@@ -142,6 +142,7 @@ fetch_docs "cli" "https://github.com/vfarcic/dot-ai-cli.git" "docs"
 fetch_docs "controller" "https://github.com/vfarcic/dot-ai-controller.git" "docs"
 fetch_docs "ui" "https://github.com/vfarcic/dot-ai-ui.git" "docs"
 fetch_docs "stack" "https://github.com/vfarcic/dot-ai-stack.git" "docs"
+fetch_docs "headlamp" "https://github.com/vfarcic/dot-ai-headlamp.git" "docs"
 
 echo ""
 echo "=== Cleanup ==="

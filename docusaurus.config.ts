@@ -114,11 +114,21 @@ const config: Config = {
       },
     ],
     [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'headlamp',
+        path: 'docs/headlamp',
+        routeBasePath: 'docs/headlamp',
+        sidebarPath: './sidebars/headlamp.ts',
+        editUrl: 'https://github.com/vfarcic/dot-ai-headlamp/tree/main/docs/',
+      },
+    ],
+    [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
         hashed: true,
-        docsRouteBasePath: ['/docs/ai-engine', '/docs/mcp', '/docs/cli', '/docs/controller', '/docs/ui', '/docs/stack'],
-        docsDir: ['docs/ai-engine', 'docs/mcp', 'docs/cli', 'docs/controller', 'docs/ui', 'docs/stack'],
+        docsRouteBasePath: ['/docs/ai-engine', '/docs/mcp', '/docs/cli', '/docs/controller', '/docs/ui', '/docs/stack', '/docs/headlamp'],
+        docsDir: ['docs/ai-engine', 'docs/mcp', 'docs/cli', 'docs/controller', 'docs/ui', 'docs/stack', 'docs/headlamp'],
         docsPluginIdForPreferredVersion: 'ai-engine',
         indexBlog: false,
         highlightSearchTermsOnTargetPage: true,
@@ -166,23 +176,31 @@ const config: Config = {
           position: 'left',
         },
         {
-          to: '/docs/mcp',
-          label: 'MCP',
+          type: 'dropdown',
+          label: 'Interfaces',
           position: 'left',
-        },
-        {
-          to: '/docs/cli',
-          label: 'CLI',
-          position: 'left',
+          items: [
+            {
+              to: '/docs/mcp',
+              label: 'MCP',
+            },
+            {
+              to: '/docs/cli',
+              label: 'CLI',
+            },
+            {
+              to: '/docs/ui',
+              label: 'Web UI',
+            },
+            {
+              to: '/docs/headlamp',
+              label: 'Headlamp',
+            },
+          ],
         },
         {
           to: '/docs/controller',
           label: 'Controller',
-          position: 'left',
-        },
-        {
-          to: '/docs/ui',
-          label: 'Web UI',
           position: 'left',
         },
         {
@@ -209,6 +227,10 @@ const config: Config = {
             {
               href: 'https://github.com/vfarcic/dot-ai-ui',
               label: 'Web UI',
+            },
+            {
+              href: 'https://github.com/vfarcic/dot-ai-headlamp',
+              label: 'Headlamp',
             },
           ],
         },
@@ -244,6 +266,10 @@ const config: Config = {
               label: 'Web UI',
               to: '/docs/ui',
             },
+            {
+              label: 'Headlamp',
+              to: '/docs/headlamp',
+            },
           ],
         },
         {
@@ -264,6 +290,10 @@ const config: Config = {
             {
               label: 'Web UI Discussions',
               href: 'https://github.com/vfarcic/dot-ai-ui/discussions',
+            },
+            {
+              label: 'Headlamp Discussions',
+              href: 'https://github.com/vfarcic/dot-ai-headlamp/discussions',
             },
           ],
         },
@@ -289,6 +319,10 @@ const config: Config = {
             {
               label: 'Web UI GitHub',
               href: 'https://github.com/vfarcic/dot-ai-ui',
+            },
+            {
+              label: 'Headlamp GitHub',
+              href: 'https://github.com/vfarcic/dot-ai-headlamp',
             },
             {
               label: 'llms.txt',
