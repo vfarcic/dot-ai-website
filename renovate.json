@@ -15,7 +15,7 @@
     {
       "description": "Group Docusaurus packages",
       "groupName": "docusaurus",
-      "matchPackagePatterns": ["^@docusaurus/"],
+      "matchPackageNames": ["@docusaurus/**"],
       "matchManagers": ["npm"]
     },
     {
