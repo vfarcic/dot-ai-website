@@ -11,9 +11,114 @@ echo "Fetching documentation from source repositories..."
 # Create temp directory
 mkdir -p "$TEMP_DIR"
 
+# Resolve a relative path against a base directory, purely lexically.
+# Prints the normalized path; returns 1 if the path escapes the repository root.
+resolve_path() {
+  base="$1"
+  rel="$2"
+
+  # Combine first: field splitting applies only to the expanded text, so
+  # "$base/$rel" would keep the literal slash glued to the adjacent components.
+  combined="$base/$rel"
+
+  set -f
+  OLD_IFS="$IFS"
+  IFS='/'
+  out=''
+  for part in $combined; do
+    case "$part" in
+      ''|.)
+        ;;
+      ..)
+        if [ -z "$out" ]; then
+          IFS="$OLD_IFS"
+          set +f
+          return 1
+        fi
+        case "$out" in
+          */*) out="${out%/*}" ;;
+          *) out='' ;;
+        esac
+        ;;
+      *)
+        out="${out:+$out/}$part"
+        ;;
+    esac
+  done
+  IFS="$OLD_IFS"
+  set +f
+
+  printf '%s' "$out"
+}
+
+# Function to rewrite links that point outside the published docs tree
+#
+# Developer guides, governance files and anything removed below are never copied
+# to the website, so a relative link to one fails the Docusaurus broken-link
+# check and breaks the build. Point those at the source repository on GitHub
+# instead, so the link still resolves for the reader.
+rewrite_unpublished_links() {
+  file="$1"
+  src_rel="$2"
+  repo_root="$3"
+  src_prefix="$4"
+  target_dir="$5"
+  blob_base="$6"
+
+  [ -n "$blob_base" ] || return 0
+
+  case "$src_rel" in
+    */*) src_dir="${src_rel%/*}" ;;
+    *) src_dir='' ;;
+  esac
+
+  grep -o ']([^)]*\.md[^)]*)' "$file" 2>/dev/null | sort -u | while read -r match; do
+    link="${match#](}"
+    link="${link%)}"
+
+    # Leave external, absolute and anchor-only links alone
+    case "$link" in
+      *://*|/*|'#'*|mailto:*) continue ;;
+    esac
+
+    link_path="${link%%#*}"
+    link_anchor="${link#"$link_path"}"
+
+    resolved="$(resolve_path "$src_dir" "$link_path")" || continue
+    [ -n "$resolved" ] || continue
+
+    # Still published on the website? Keep the relative link.
+    case "$resolved" in
+      "$src_prefix"/*)
+        if [ -e "$target_dir/${resolved#"$src_prefix"/}" ]; then
+          continue
+        fi
+        ;;
+    esac
+
+    # Only rewrite what actually exists in the source repository, so a genuine
+    # typo keeps failing the build instead of becoming a dead GitHub link.
+    [ -e "$repo_root/$resolved" ] || continue
+
+    old="$(printf '%s' "$match" | sed 's/[][\\.*^$|]/\\&/g')"
+    new="$(printf '%s' "](${blob_base}/${resolved}${link_anchor})" | sed 's/[\\&|]/\\&/g')"
+
+    temp_file="${file}.tmp"
+    sed "s|$old|$new|g" "$file" > "$temp_file"
+    mv "$temp_file" "$file"
+
+    echo "  Rewrote unpublished link $link -> $blob_base/$resolved"
+  done
+}
+
 # Function to process markdown files and remove docs-exclude markers
 process_markdown() {
   file="$1"
+  src_rel="$2"
+  repo_root="$3"
+  src_prefix="$4"
+  target_dir="$5"
+  blob_base="$6"
 
   # Create a temp file for processing
   temp_file="${file}.tmp"
@@ -29,6 +134,9 @@ process_markdown() {
       "$file" > "$temp_file"
 
   mv "$temp_file" "$file"
+
+  rewrite_unpublished_links "$file" "$src_rel" "$repo_root" "$src_prefix" \
+    "$target_dir" "$blob_base"
 }
 
 # Function to fetch docs from a repo
@@ -38,6 +146,7 @@ fetch_docs() {
   docs_path="$3"
   target_dir="$DOCS_DIR/$project"
   temp_repo="$TEMP_DIR/$project"
+  blob_base="$(printf '%s' "$repo_url" | sed 's|\.git$||')/blob/main"
 
   echo ""
   echo "=== Processing $project ==="
@@ -74,7 +183,8 @@ fetch_docs() {
     # Process all markdown files to remove docs-exclude markers
     echo "Processing markdown files..."
     find "$target_dir" -name "*.md" -type f | while read -r md_file; do
-      process_markdown "$md_file"
+      process_markdown "$md_file" "$docs_path/${md_file#"$target_dir"/}" \
+        "$temp_repo" "$docs_path" "$target_dir" "$blob_base"
     done
 
     echo "Done processing $project docs."
@@ -99,6 +209,7 @@ echo ""
 echo "=== Processing dot-ai (ai-engine + mcp) ==="
 DOTAI_REPO="https://github.com/vfarcic/dot-ai.git"
 DOTAI_TEMP="$TEMP_DIR/dot-ai"
+DOTAI_BLOB="$(printf '%s' "$DOTAI_REPO" | sed 's|\.git$||')/blob/main"
 
 if [ -d "$DOTAI_TEMP" ]; then
   echo "Updating existing clone..."
@@ -128,7 +239,8 @@ for section in ai-engine mcp; do
 
     echo "Processing markdown files in $section..."
     find "$target_dir" -name "*.md" -type f | while read -r md_file; do
-      process_markdown "$md_file"
+      process_markdown "$md_file" "docs/$section/${md_file#"$target_dir"/}" \
+        "$DOTAI_TEMP" "docs/$section" "$target_dir" "$DOTAI_BLOB"
     done
 
     echo "Done processing $section docs."
