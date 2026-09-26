@@ -3,8 +3,6 @@
   "packages": [
     "vals@0.42.6",
     "git@2.51.2",
-    "hadolint@2.14.0",
-    "trivy@0.66.0",
     "netlify-cli@23.15.0"
   ],
   "shell": {
