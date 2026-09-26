@@ -5,3 +5,7 @@ metadata:
   labels:
     dot-ai.io/managed: "true"
     dot-ai.io/app-name: dot-ai-website
+  annotations:
+    # The namespace is shared with the dot-ai stack and other apps. Keep Argo CD
+    # from deleting it when this app is removed after the move to Netlify.
+    argocd.argoproj.io/sync-options: Prune=false,Delete=false
