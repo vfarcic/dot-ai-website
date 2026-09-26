@@ -131,6 +131,15 @@ jobs:
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
           docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
+      # Deploy before tagging so a failed deploy can be rerun without cutting a new release
+      - name: Deploy to Netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          devbox run -- netlify deploy --prod --no-build --dir=build \
+            --message "Release ${{ steps.version.outputs.tag }}"
+
       - name: Create Git tag
         run: |
           git config user.name "github-actions[bot]"
@@ -147,11 +156,3 @@ jobs:
           git add k8s/overlays/production/kustomization.yaml
           git commit -m "chore: update image tag to ${{ steps.version.outputs.version }} [skip ci]"
           git push origin main
-
-      - name: Deploy to Netlify
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: |
-          devbox run -- netlify deploy --prod --no-build --dir=build \
-            --message "Release ${{ steps.version.outputs.tag }}"

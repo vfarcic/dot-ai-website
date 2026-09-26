@@ -51,9 +51,10 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
+          set -o pipefail
           URL=$(devbox run -- netlify deploy --no-build --dir=build --json \
             --alias pr-${{ github.event.pull_request.number }} \
-            --message "PR #${{ github.event.pull_request.number }}" | jq -r '.deploy_url')
+            --message "PR #${{ github.event.pull_request.number }}" | jq -er '.deploy_url')
           echo "Preview: $URL"
           echo "### Netlify preview: $URL" >> "$GITHUB_STEP_SUMMARY"
 
