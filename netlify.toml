@@ -1,0 +1,20 @@
+# Netlify configuration for the dot-ai website
+#
+# The site is built in GitHub Actions (upstream repos trigger rebuilds via
+# repository_dispatch) and uploaded with `netlify deploy --no-build`, so
+# Netlify never runs a build itself.
+
+[build]
+  publish = "build"
+
+# Serve markdown files as plain text for llms.txt spec compliance
+[[headers]]
+  for = "/*.md"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+
+# Docusaurus emits content-hashed bundles under /assets/, safe to cache forever
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

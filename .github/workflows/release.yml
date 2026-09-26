@@ -147,3 +147,11 @@ jobs:
           git add k8s/overlays/production/kustomization.yaml
           git commit -m "chore: update image tag to ${{ steps.version.outputs.version }} [skip ci]"
           git push origin main
+
+      - name: Deploy to Netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          devbox run -- netlify deploy --prod --no-build --dir=build \
+            --message "Release ${{ steps.version.outputs.tag }}"

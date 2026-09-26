@@ -44,6 +44,19 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Deploy preview to Netlify
+        # Secrets are not available to PRs from forks, so skip the preview there
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          URL=$(devbox run -- netlify deploy --no-build --dir=build --json \
+            --alias pr-${{ github.event.pull_request.number }} \
+            --message "PR #${{ github.event.pull_request.number }}" | jq -r '.deploy_url')
+          echo "Preview: $URL"
+          echo "### Netlify preview: $URL" >> "$GITHUB_STEP_SUMMARY"
+
       - name: Build container
         run: docker build -t dot-ai-website:pr-${{ github.event.pull_request.number }} .
 
