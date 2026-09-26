@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - 'k8s/overlays/production/kustomization.yaml'
   repository_dispatch:
     types: [upstream-release, docs-update]
   workflow_dispatch:
@@ -17,15 +15,10 @@ on:
 
 permissions:
   contents: write
-  packages: write
 
 concurrency:
   group: release
   cancel-in-progress: false
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   release:
@@ -108,29 +101,6 @@ jobs:
           echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
           echo "tag=v${NEW_VERSION}" >> $GITHUB_OUTPUT
 
-      - name: Log in to Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build container
-        run: |
-          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }} \
-                       -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest .
-
-      - name: Run smoke test
-        run: ./scripts/smoke-test.sh ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
-
-      - name: Trivy vulnerability scan
-        run: devbox run trivy image --exit-code 1 --severity HIGH,CRITICAL ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
-
-      - name: Push container images
-        run: |
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-
       # Deploy before tagging so a failed deploy can be rerun without cutting a new release
       - name: Deploy to Netlify
         env:
@@ -146,13 +116,3 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git tag -a ${{ steps.version.outputs.tag }} -m "Release ${{ steps.version.outputs.tag }}"
           git push origin ${{ steps.version.outputs.tag }}
-
-      - name: Commit and push Kustomize update
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main
-          sed -i 's/newTag: .*/newTag: "${{ steps.version.outputs.version }}"/' k8s/overlays/production/kustomization.yaml
-          git add k8s/overlays/production/kustomization.yaml
-          git commit -m "chore: update image tag to ${{ steps.version.outputs.version }} [skip ci]"
-          git push origin main

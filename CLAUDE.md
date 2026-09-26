@@ -34,3 +34,7 @@ The sidebar/index for documentation is configured in the `sidebars/` directory:
 
 - `npm run build` - Build the static site
 - `npm ci` - Install dependencies
+
+## Deployment
+
+The site is hosted on Netlify (site `devopstoolkit-ai`). GitHub Actions builds it and uploads `build/` with `netlify deploy --no-build`; see `README.md` for details. Response headers live in `netlify.toml`.

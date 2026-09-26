@@ -1,42 +1,28 @@
-# Website
+# dot-ai Website
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
-
-## Installation
-
-```bash
-yarn
-```
+Documentation portal for the DevOps AI Toolkit, served at [devopstoolkit.ai](https://devopstoolkit.ai). Built with [Docusaurus](https://docusaurus.io/) and hosted on [Netlify](https://www.netlify.com/).
 
 ## Local Development
 
 ```bash
-yarn start
+npm ci
+./scripts/fetch-docs.sh   # pull docs from the source repositories
+npm start
 ```
-
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
 ## Build
 
 ```bash
-yarn build
+npm run build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+Generates the static site into `build/`.
 
 ## Deployment
 
-Using SSH:
+Deployments run in GitHub Actions, not on Netlify's build service:
 
-```bash
-USE_SSH=true yarn deploy
-```
+- **Production**: `.github/workflows/release.yml` builds the site and runs `netlify deploy --prod --no-build` on every push to `main`, on `repository_dispatch` events from the upstream repositories (`upstream-release`, `docs-update`), and on manual dispatch.
+- **Previews**: `.github/workflows/pr.yml` deploys each pull request to `https://pr-<number>--devopstoolkit-ai.netlify.app`.
 
-Not using SSH:
-
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
-
+Response headers (such as serving `.md` files as `text/plain`) are configured in `netlify.toml`. The Netlify CLI is provided by Devbox (`devbox run -- netlify ...`). The workflows need the `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID` repository secrets.
